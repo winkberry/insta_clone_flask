@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify,redirect,url_for
 from pymongo import MongoClient
 import certifi
 
@@ -52,7 +52,7 @@ def login():
 
 @app.route('/register')
 def register():
-    return render_template('register.html')
+    return render_template('regist.html')
 
 
 #################################
