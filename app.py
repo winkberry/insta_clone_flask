@@ -135,6 +135,10 @@ def api_valid():
         return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
 
 
+
+    #################################
+    ##  메인화면을 위한 API            ##
+    #################################
 @app.route('/api/feed', methods=['GET'])
 def api_feed():
 
@@ -142,8 +146,12 @@ def api_feed():
 
 
 
-# /api/profile?username=<>
-@app.route('/api/profile', methods=['GET'])
+    #################################
+    ##  프로필화면을 위한 API            ##
+    #################################
+
+# /api/profile?username=username
+@app.route('/profile', methods=['GET'])
 def api_profile():
     username = request.args.get('username')
     return jsonify()
