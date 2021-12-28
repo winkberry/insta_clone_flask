@@ -126,7 +126,7 @@ def api_valid():
 
         # payload 안에 id가 들어있습니다. 이 id로 유저정보를 찾습니다.
         # 여기에선 그 예로 닉네임을 보내주겠습니다.
-        userinfo = db.user.find_one({'id': payload['id']}, {'_id': 0})
+        userinfo = db.user.find_one({'id': payload['id']}, {'_id': False})
         return jsonify({'result': 'success', 'nickname': userinfo['nick']})
     except jwt.ExpiredSignatureError:
         # 위를 실행했는데 만료시간이 지났으면 에러가 납니다.
