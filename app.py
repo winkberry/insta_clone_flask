@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify,redirect,url_for
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 from pymongo import MongoClient
 import certifi
 
@@ -11,7 +11,7 @@ db = client.dbSpace
 
 app = Flask(__name__)
 
-SECRET_KEY = 'SPARTA'
+SECRET_KEY = '3iI3j63EmUww246bXHUVghUnYkTwQ6lm'
 
 # JWT 패키지를 사용합니다. (설치해야할 패키지 이름: PyJWT)
 import jwt
@@ -29,8 +29,19 @@ import hashlib
 #################################
 @app.route('/')
 def home():
-    return render_template('index.html')
-
+    # 현재 이용자의 컴퓨터에 저장된 cookie 에서 mytoken 을 가져옵니다.
+    token_receive = request.cookies.get('mytoken')
+    try:
+        # 암호화되어있는 token의 값을 우리가 사용할 수 있도록 디코딩(암호화 풀기)해줍니다!
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.user.find_one({"id": payload['id']})
+        return render_template('index.html', nickname=user_info["nick"])
+    # 만약 해당 token의 로그인 시간이 만료되었다면, 아래와 같은 코드를 실행합니다.
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+        # 만약 해당 token이 올바르게 디코딩되지 않는다면, 아래와 같은 코드를 실행합니다.
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 
 @app.route('/login')
@@ -59,7 +70,7 @@ def api_register():
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
-    db.user.insert_one({'id': id_receive, 'pw': pw_hash, 'nick': nickname_receive})
+    db.user.insert_one({'id': id_receive, 'pw': pw_hash, 'nick': nickname_receive})  # 이메일 추가
 
     return jsonify({'result': 'success'})
 
@@ -122,6 +133,20 @@ def api_valid():
         return jsonify({'result': 'fail', 'msg': '로그인 시간이 만료되었습니다.'})
     except jwt.exceptions.DecodeError:
         return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
+
+
+@app.route('/api/feed', methods=['GET'])
+def api_feed():
+
+    return jsonify()
+
+
+
+# /api/profile?username=<>
+@app.route('/api/profile', methods=['GET'])
+def api_profile():
+    username = request.args.get('username')
+    return jsonify()
 
 
 if __name__ == '__main__':
