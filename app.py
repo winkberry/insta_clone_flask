@@ -158,9 +158,17 @@ def api_feed():
 
 @app.route('/api/posting', methods=['POST'])
 def create_post():
-
-    return jsonify()
-
+    url_receive = request.form['url_give']
+    title_receive = request.form['title_give']
+    content_receive = request.form['content_give']
+    doc = {
+        'title': title_receive,
+        'photo': url_receive,
+        'content': content_receive,
+        'username': '123',
+    }
+    db.posts.insert_one(doc)
+    return jsonify({'msg':"저장 완료"})
 
     #################################
     ##  프로필화면을 위한 API            ##
