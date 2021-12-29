@@ -61,7 +61,7 @@ def profile():
 
 
 @app.route('/posting')
-def profile():
+def posting():
     return render_template('create_post.html')
 
 
@@ -117,11 +117,6 @@ def api_login():
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
-@app.route("/git-test")
-def git_check():
-
-    return render_template("gitcheck.html")
-
 
 
 # [유저 정보 확인 API]
@@ -163,9 +158,17 @@ def api_feed():
 
 @app.route('/api/posting', methods=['POST'])
 def create_post():
-
-    return jsonify()
-
+    url_receive = request.form['url_give']
+    title_receive = request.form['title_give']
+    content_receive = request.form['content_give']
+    doc = {
+        'title': title_receive,
+        'photo': url_receive,
+        'content': content_receive,
+        'username': '123',
+    }
+    db.posts.insert_one(doc)
+    return jsonify({'msg':"저장 완료"})
 
     #################################
     ##  프로필화면을 위한 API            ##
@@ -180,3 +183,11 @@ def api_profile():
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5001, debug=True)
+
+
+
+        ########jinja2 템플릿 언어 이용하여 프로필 화면에 이름을 보여줍니다.
+@app.route('/')
+def main():
+    myname = "seunghwan"
+    return render_template("profile.html", name=myname)
