@@ -13,3 +13,7 @@
     width: 500px;
     height: 500px
 }
+body {
+    max-width: 720px;
+    margin: 0 auto;
+}
