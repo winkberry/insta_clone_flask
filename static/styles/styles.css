@@ -39,7 +39,7 @@ body {
 
 #logo:hover, #logo:focus { animation-duration: 3s; animation-name: rainbowLink; animation-iteration-count: infinite; animation-timing-function: ease-in; }
 @keyframes rainbowLink {
- 0% { color: deeppink; }
+ 0% { color: deeppink;}
  15% { color: coral; }
  30% { color: yellow; }
  45% { color: yellowgreen; }
