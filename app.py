@@ -61,7 +61,7 @@ def profile():
 
 
 @app.route('/posting')
-def profile():
+def posting():
     return render_template('create_post.html')
 
 
