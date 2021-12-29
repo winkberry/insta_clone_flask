@@ -58,7 +58,8 @@ def register():
 @app.route('/profile')
 def main():
     myname = "seunghwan"
-    return render_template("profile.html", name=myname)
+    myphoto = "photo"
+    return render_template("profile.html", name=myname, photo=myphoto)
 
 
 @app.route('/posting')
