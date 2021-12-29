@@ -1,3 +1,10 @@
+* {
+    z-index: 2;
+}
+
+p {
+    color: white;
+}
 body {
     max-width: 720px;
     margin: 0 auto;
@@ -7,12 +14,12 @@ body {
 #header {
     display: flex;
     justify-content: space-between;
-    background-color: white;
+    background-color: black;
     align-items: center;
     width: 100%;
     position: fixed;
     max-width: 720px;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid gray;
 }
 
 #header .header-icon {
@@ -32,13 +39,16 @@ body {
 
 /* 스토리 */
 #story-container {
+
+    z-index: 1;
     padding-left: 1%;
-    background-color: #f6f6f6;
+    background-color: black;
     display: flex;
+    position: relative;
     justify-content: flex-start;
     align-items: center;
     overflow: hidden;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid gray;
 }
 
 .story-wrapper {
@@ -105,6 +115,8 @@ body {
 
 /* 포스트 - 헤더 */
 .post-header {
+    position: relative;
+    z-index: 1;
     margin: 1% 0;
     display: flex;
     align-items: center;
@@ -128,6 +140,8 @@ body {
 
 /* 포스트 - 바디 */
 .post-body img {
+    z-index: 1;
+    position: relative;
     width: 100%;
 }
 
@@ -143,6 +157,7 @@ body {
 .post-body .post-icons-wrapper .left-wrapper .post-icon {
     margin: 2% 4%;
     width: 14%;
+
 }
 
 .post-body .post-icons-wrapper .left-wrapper .post-icon-2 {
@@ -157,11 +172,14 @@ body {
 
 /* 포스트 - 푸터 */
 .post-footer {
+    position: relative;
+    background-color: black;
     padding-left: 2%;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid gray;
 }
 
 .post-footer .post-like-wrapper {
+
     display: flex;
     align-items: center;
     margin-left: 1%;
@@ -207,12 +225,13 @@ body {
 
 /* 푸터 */
 #footer {
+
     position: fixed;
     bottom: 0;
     width: 100%;
     max-width: 720px;
-    border-top: 1px solid lightgray;
-    background-color: white;
+    border-top: 1px solid gray;
+    background-color: black;
 }
 
 #footer #icon-wrapper {
