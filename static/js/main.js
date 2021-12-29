@@ -7,6 +7,7 @@
                 data: {},
                 success: function (response) {
                     console.log(response)
+
                 }
             })
 

@@ -1,9 +1,8 @@
 function get_url(){
-    let url = $('#url').val()
-    let temp_html = `<div style="width:100px;height:100px;background-image: url('${url}');background-position: center;background-size: cover;">
-                
-                     </div>`
+    let url = $('#url')
+    let temp_html = `<div class="img-check" style="background-image: url('${url.val()}');"></div>`
     $('#img-url').append(temp_html)
+    url.empty()
 }
 
 function create_post() {

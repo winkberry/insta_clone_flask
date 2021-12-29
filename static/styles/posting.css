@@ -1,0 +1,15 @@
+#container {
+
+}
+
+.img-check {
+    width: 100px;
+    height: 100px;
+    background-position: center;
+    background-size: cover;
+}
+
+.img-url {
+    width: 500px;
+    height: 500px
+}
