@@ -183,3 +183,11 @@ def api_profile():
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5001, debug=True)
+
+
+
+        ########jinja2 템플릿 언어 이용하여 프로필 화면에 이름을 보여줍니다.
+@app.route('/')
+def main():
+    myname = "seunghwan"
+    return render_template("profile.html", name=myname)
