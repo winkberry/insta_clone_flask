@@ -60,6 +60,12 @@ def profile():
     return render_template('profile.html')
 
 
+@app.route('/posting')
+def profile():
+    return render_template('create_post.html')
+
+
+
 #################################
 ##  로그인을 위한 API            ##
 #################################
@@ -154,6 +160,11 @@ def api_valid():
 def api_feed():
     all_feed = list(db.posts.find({}, {'_id': 0}))
     return jsonify(all_feed)
+
+@app.route('/api/posting', methods=['POST'])
+def create_post():
+
+    return jsonify()
 
 
     #################################
