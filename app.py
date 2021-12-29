@@ -56,8 +56,9 @@ def register():
 
 
 @app.route('/profile')
-def profile():
-    return render_template('profile.html')
+def main():
+    myname = "seunghwan"
+    return render_template("profile.html", name=myname)
 
 
 @app.route('/posting')
@@ -186,8 +187,3 @@ if __name__ == '__main__':
 
 
 
-########jinja2 템플릿 언어 이용하여 프로필 화면에 이름을 보여줍니다.
-@app.route('/')
-def main():
-    myname = "seunghwan"
-    return render_template("profile.html", name=myname)

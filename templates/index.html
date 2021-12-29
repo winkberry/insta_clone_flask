@@ -7,13 +7,17 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/styles/styles.css" />
+    <link rel="stylesheet" type="text/css" href="./static/styles/styles.css" />
     <script type="text/javascript" src="./static/js/main.js"></script>
     <title>around space</title>
 
 </head>
 
 <body>
+<div>
+
+{# 마이페이지 버튼 누르면 window.location.href = '/profile?username=<username>' 으로 이동
+username 은 로그인 한 상태에서 로그인 확인 함수(app.py 의 api_valid)로 name을 받아와서 넣어준다#}
 <div id="main">
     <div id="header">
         <img class="header-icon" src="/img/camera@3x.png"/>
