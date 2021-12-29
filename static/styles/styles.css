@@ -28,6 +28,8 @@ body {
 }
 
 #header #logo {
+    /*Ballet Harmony 폰트를 다운 받아야 합니다. */
+    /*다운로드 링크 : https://www.dafont.com/ballet-harmony.font*/
     font-family: Ballet Harmony;
     font-size: 55px;
     background-image: linear-gradient(100deg, deeppink, coral, greenyellow, deepskyblue, blue, purple);
