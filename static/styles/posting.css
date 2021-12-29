@@ -1,5 +1,7 @@
 #container {
+}
 
+#img-check-wrapper {
 }
 
 .img-check {
@@ -9,11 +11,16 @@
     background-size: cover;
 }
 
-.img-url {
-    width: 500px;
-    height: 500px
+#img-url {
+
 }
-body {
-    max-width: 720px;
-    margin: 0 auto;
+
+
+#posting-wrapper{
+
+
+}
+
+.btn{
+
 }

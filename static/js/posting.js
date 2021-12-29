@@ -1,8 +1,12 @@
 function get_url(){
-    let url = $('#url')
+    let img_box =$('#img-url')
+    img_box.empty()
+    if(url.val() ===''){
+        alert('빈칸이 있습니다')
+        return
+    }
     let temp_html = `<div class="img-check" style="background-image: url('${url.val()}');"></div>`
-    $('#img-url').append(temp_html)
-    url.empty()
+    img_box.append(temp_html)
 }
 
 function create_post() {
@@ -10,6 +14,11 @@ function create_post() {
     // let username = $('#username').val() //login 하면 받는다
     let title = $('#title').val()
     let content = $('#content').val()
+
+    if (url === "" && title==="" &&content ===""){
+        alert('빈칸이 있습니다')
+        return
+    }
 
     $.ajax({
         type: 'POST',
