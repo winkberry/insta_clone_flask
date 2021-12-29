@@ -15,7 +15,9 @@
         <!--# 프로필 상단 컨테이너입니다-->
         <div id="profile-header">
             <p>프로필사진</p>
-            <h3>{{ username }}!</h3>
+            <h3>{{ user['username'] }}!</h3>
+            <h3>{{ user['email'] }}</h3>
+            <h3>{{ user['password'] }}</h3>
             <!--# user의 {name},{photo},{e-mail}을 편집할 수 있습니다-->
             <button id="profile-edit">프로필 편집</button>
         </div>

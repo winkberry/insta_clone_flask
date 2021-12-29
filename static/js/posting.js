@@ -13,9 +13,8 @@ function create_post() {
     let url = $('#url').val()
     // let username = $('#username').val() //login 하면 받는다
     let title = $('#title').val()
-    let content = $('#content').val()
 
-    if (url === "" && title==="" &&content ===""){
+    if (url === "" && title==="" && content ===""){
         alert('빈칸이 있습니다')
         return
     }

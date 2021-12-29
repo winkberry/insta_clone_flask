@@ -8,9 +8,14 @@
                 url: '/api/feed',
                 data: {},
                 success: function (response) {
-                    console.log(JSON.parse(response))
+                    let row = JSON.parse(response)
 
                 }
             })
              //여기다가 포스트 html 을 foreach
+        }
+
+        //로그인한 유저의 이름을 보내준다
+        function go_profile(){
+             window.location.href=`/profile?username=${'123'}` //일단은 123으로 보내준다
         }

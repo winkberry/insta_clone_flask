@@ -66,6 +66,7 @@ def login():
 def register():
     return render_template('regist.html')
 
+
 # mongodb에서 원하는 조건의 데이터를 불러왔습니다. 이후 filter를 통해서 가져오는 방식으로 조건을 줄 생각입니다.
 @app.route('/profile')
 def profile():
@@ -73,7 +74,7 @@ def profile():
     # myphoto = "photo"
     # return render_template("profile.html", name=myname, photo=myphoto)
     user = db.users.find_one({'username': '123'}, {'_id': False})
-    return render_template('profile.html', username=user['username'])
+    return render_template('profile.html', user=user)
 
 
 @app.route('/posting')
@@ -176,11 +177,9 @@ def api_feed():
 def create_post():
     url_receive = request.form['url_give']
     title_receive = request.form['title_give']
-    content_receive = request.form['content_give']
     doc = {
         'title': title_receive,
         'photo': url_receive,
-        'content': content_receive,
         'username': '123',
     }
     db.posts.insert_one(doc)
@@ -189,13 +188,6 @@ def create_post():
     #################################
     ##  프로필화면을 위한 API            ##
     #################################
-
-
-# /api/profile?username=username
-@app.route('/profile', methods=['GET'])
-def api_profile():
-    username = request.args.get('username')
-    return jsonify()
 
 
 if __name__ == '__main__':
