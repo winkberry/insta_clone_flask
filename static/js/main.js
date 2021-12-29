@@ -8,7 +8,7 @@
                 url: '/api/feed',
                 data: {},
                 success: function (response) {
-                    console.log(response)
+                    console.log(JSON.parse(response))
 
                 }
             })
