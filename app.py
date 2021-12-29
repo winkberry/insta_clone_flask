@@ -186,7 +186,7 @@ if __name__ == '__main__':
 
 
 
-        ########jinja2 템플릿 언어 이용하여 프로필 화면에 이름을 보여줍니다.
+########jinja2 템플릿 언어 이용하여 프로필 화면에 이름을 보여줍니다.
 @app.route('/')
 def main():
     myname = "seunghwan"
