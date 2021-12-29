@@ -28,7 +28,23 @@ body {
 }
 
 #header #logo {
-    width: 27%;
+    font-family: Ballet Harmony;
+    font-size: 55px;
+    background-image: linear-gradient(100deg, deeppink, coral, greenyellow, deepskyblue, blue, purple);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+#logo:hover, #logo:focus { animation-duration: 3s; animation-name: rainbowLink; animation-iteration-count: infinite; }
+@keyframes rainbowLink {
+ 0% { color: #ff2a2a; }
+ 15% { color: #ff7a2a; }
+ 30% { color: #ffc52a; }
+ 45% { color: #43ff2a; }
+ 60% { color: #2a89ff; }
+ 75% { color: #202082; }
+ 90% { color: #6b2aff; }
+ 100% { color: #e82aff; }
 }
 
 /* 컨테이너 */
