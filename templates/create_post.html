@@ -10,12 +10,20 @@
 </head>
 <body>
     <div id="container">
+        <div id="img-check-wrapper">
+            {# img url 은 url로 받아온 사진들 보여주는 공간입니다  #}
+            <div id="img-url"></div>
+            <input id="url" placeholder="포토 URL"/>
+            <button class="btn" onclick="get_url()">사진확인</button>
+        </div>
+        <div id="posting-wrapper">
+
+
             <input id="title" placeholder="제목"/>
             <input id="content" placeholder="내용"/>
-            <input id="url" placeholder="포토 URL"/>
-            <button onclick="get_url()">사진확인</button>
-            <button onclick="create_post()">등록하기</button>
-            <div id="img-url"></div>
+
+            <button class="btn" onclick="create_post()">등록하기</button>
+            </div>
     </div>
 </body>
 
