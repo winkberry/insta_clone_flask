@@ -117,11 +117,6 @@ def api_login():
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
-@app.route("/git-test")
-def git_check():
-
-    return render_template("gitcheck.html")
-
 
 
 # [유저 정보 확인 API]
