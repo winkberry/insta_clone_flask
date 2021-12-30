@@ -6,50 +6,55 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="./static/styles/regist.css" />
-    <script type="text/javascript" src="./static/js/regist.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/styles/regist.css" />
+    <script type="text/javascript" src="/static/js/regist.js"></script>
 </head>
 <body>
 
-로고
-<div>
+
+<div class="main-box">
     <div class="section has-text-centered">
-        <h1 class="title">회원가입 페이지</h1>
-        <div class="container" style="width:60%">
+        <div class="section-wrapper">
+        <p id="logo">Around Space</p>
+        <h1 class="title">Sign up</h1>
+        <div class="container">
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" for="id">ID</label>
+                    <label class="label" for="id"></label>
                 </div>
                 <div class="field-body">
                     <div class="field">
+                        <p id="help-id">아이디는 5-15자의 영문과 숫자와 일부 특수문자(._-)만 입력 가능합니다.</p>
+                         <p id="help-id-login" class="is-danger"></p>
+                        <div class="id-wrapper">
                         <div class="control">
                             <input type="text" class="input" id="id" aria-describedby="emailHelp"
                                    placeholder="ID">
                         </div>
                         <div id="btn-check-dup">
                             <button onclick=check_duplicate()>중복확인</button>
-                        </div>                            
+                        </div>
+                        </div>
                     </div>
-                    <p id="help-id">아이디는 5-15자의 영문과 숫자와 일부 특수문자(._-)만 입력 가능합니다.</p>
-                    <p id="help-id-login" class="is-danger"></p>
                 </div>
             </div>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" for="pw">PW</label>
+                    <label class="label" for="pw"></label>
                 </div>
                 <div class="field-body">
+                    <p id="help-password">영문과 숫자 조합의 8-20자의 비밀번호를 설정해주세요.</p>
                     <div class="field">
                         <div class="control">
                             <input type="password" class="input" id="pw" placeholder="PW">
                         </div>
                     </div>
-                    <p id="help-password">영문과 숫자 조합의 8-20자의 비밀번호를 설정해주세요.</p>
+
                 </div>
             </div>                
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" for="email">e-mail</label>
+                    <label class="label" for="email"></label>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -61,7 +66,7 @@
             </div>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" for="user-img">Image</label>
+                    <label class="label" for="user-img">Image URL</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -71,9 +76,10 @@
                     </div>
                 </div>
             </div>
-            <hr>
+
             <button disabled id='create-btn' class="button is-primary" onclick=registerCheck()>회원가입</button>
         </div>
+            </div>
     </div>
 </div>
 
