@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask import Flask, render_template, request, jsonify, redirect, url_for,send_file
 from pymongo import MongoClient
 import certifi
 
@@ -19,8 +19,46 @@ import jwt
 # 토큰에 만료시간을 줘야하기 때문에, datetime 모듈도 사용합니다.
 import datetime
 
-# 회원가입 시엔, 비밀번호를 암호화하여 DB에 저장해두는 게 좋습니다.
-# 그렇지 않으면, 개발자(=나)가 회원들의 비밀번호를 볼 수 있으니까요.^^;
+import io
+
+#################################
+##  이미지 파일 전송부분            ##
+#################################
+
+import gridfs
+
+
+@app.route('/api/fileupload', methods=['POST'])
+def upload_file():
+    f = request.data
+    fs = gridfs.GridFS(db)
+    imageId = fs.put(f)
+    print(f)
+    print('imageid:', imageId)
+
+    doc = {
+        'name': 'ddd',
+        'file': imageId
+    }
+
+    db.data.insert_one(doc)
+
+    return jsonify({'result': 'success'})
+
+
+@app.route('/api/readimage', methods=['GET'])
+def read_image():
+    data = db.data.find_one({'name': 'ddd'})
+    fs = gridfs.GridFS(db)
+    data = data['file']
+    data = fs.get(data)
+    print(data)
+    data = data.read()
+    print('ddd', io.BytesIO(data).read())
+    # return send_file(io.BytesIO(data), mimetype='image.png', as_attachment=True, attachment_filename='%s.png' % 'fds')
+    return send_file(io.BytesIO(data), mimetype='image.png')
+
+
 import hashlib
 
 import json
@@ -40,7 +78,7 @@ class JSONEncoder(json.JSONEncoder):
 @app.route('/')
 def home():
     # # 현재 이용자의 컴퓨터에 저장된 cookie 에서 mytoken 을 가져옵니다.
-    token_receive = request.cookies.get('mytoken')
+    token_receive = request.cookies.get('token')
     try:
          # token을 decode하여 payload를 가져오고, payload 안에 담긴 유저 id를 통해 DB에서 유저의 정보를 가져옵니다.
          payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
