@@ -15,10 +15,11 @@
         <!--# 프로필 상단 컨테이너입니다-->
         <div id="profile-header">
             <!--# user의 {name},{photo},{e-mail}을 편집할 수 있습니다-->
-            <h3>{{ user['img'] }}!</h3>
-            <h3>{{ user['username'] }}!</h3>
+            <h3>{{ user['id'] }}!</h3>
+            <h3>{{ user['id'] }}!</h3>
             <h3>{{ user['email'] }}!</h3>
             <h3>{{ user['pw'] }}!</h3>
+
             <button onclick="sign_out()" id="sign-out">로그아웃</button>
             <!--# 클릭하여 user의 프로필을 편집할 수 있습니다-->
             <!--<button onclick="update_profile()" id="profile-edit">프로필 편집</button>-->
