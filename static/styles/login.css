@@ -47,7 +47,7 @@ body {
 
 .login-box {
     margin-top: 5%;
-    width: 90%;
+    width: 80%;
     height: 550px;
     border: 4px solid transparent;
     border-top-right-radius: 10%;
@@ -73,7 +73,7 @@ body {
 
 .regist-box {
     border: 4px solid transparent;
-    width: 90%;
+    width: 80%;
     height: 100px;
     margin-top: 3%;
     background-image: linear-gradient(#f6f6f6, #f6f6f6),
