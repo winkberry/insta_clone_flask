@@ -125,3 +125,14 @@ body {
     text-decoration-line: none;
     margin-left: 5px;
 }
+
+/*로그인 화면에 뜨는 안내 문구*/
+.login-if {
+    color: dimgray;
+    font-size: 15px;
+}
+
+.title {
+    margin-top: 10px;
+    color: #0C87F2;
+}
