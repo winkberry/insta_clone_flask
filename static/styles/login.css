@@ -103,6 +103,7 @@ body {
     padding: .8em 5em;
     border: 1mm solid #F9E435;
     outline: 0;
+    text-align: center;
 
 }
 
@@ -124,4 +125,15 @@ body {
     color: #1A71BD;
     text-decoration-line: none;
     margin-left: 5px;
+}
+
+/*로그인 화면에 뜨는 안내 문구*/
+.login-if {
+    color: dimgray;
+    font-size: 15px;
+}
+
+.title {
+    margin-top: 10px;
+    color: #0C87F2;
 }
