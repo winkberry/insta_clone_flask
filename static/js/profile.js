@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    get_posts('{{user_info.username}}');
-        });
+
+    });
 
         /*로그아웃 하기*/
         function sign_out() {
@@ -27,9 +27,9 @@ $(document).ready(function () {
             window.location.href = "/"
         }
 
-        /*프로필 편집 기능 추가 중입니다.
 
-        function update_profile() {
+
+        /*function update_profile() {
             let name = $('#input-name').val()
             let form_data = new Formdata()
             form_data.append("name_give", name)
@@ -49,6 +49,4 @@ $(document).ready(function () {
                     }
                   }
                });
-            }
-
-         */
+            }*/
