@@ -9,14 +9,15 @@ function get_feed() {
         url: '/api/feed',
         data: {},
         success: function (response) {
+            // console.log(response)
             let rows = JSON.parse(response)
-            for (let i = 0; i < rows.length; i++){
+            for (let i = rows.length-1; i >= 0; i--){
                 let post_photo = rows[i]['post_photo']
                 let post_photo_content = rows[i]['post_photo_content']
                 let username = rows[i]['user']['username']
                 let profile_photo = rows[i]['user']['profile_photo']
 
-                // console.log(response)
+
                 let temp_html = `<div class="post-wrapper">
                                      <div class="post-header">
                                         <div class="left-wrapper">
