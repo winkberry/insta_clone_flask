@@ -7,25 +7,24 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/styles/styles.css" />
-    <link rel="stylesheet" type="text/css" href="/static/styles/background.css" />
+    <link rel="stylesheet" type="text/css" href="/static/styles/styles.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/styles/background.css"/>
     <script type="text/javascript" src="./static/js/main.js"></script>
-{#            fontawesome CDN#}
+    {#            fontawesome CDN#}
     <script src="https://kit.fontawesome.com/d8cab73848.js" crossorigin="anonymous"></script>
     <title>around space</title>
-
 </head>
-
 <body>
-    <div class="stars"></div>
-    <div class="twinkling"></div>
+<div class="stars"></div>
+<div class="twinkling"></div>
 <div id="main">
     <div id="header">
         <div class="logo-wrapper">
-        <p id="logo">Around Space</p>
+            <p id="logo">Around Space</p>
         </div>
-        <div class="add-icon-wrapper">
-        <i class="far fa-plus-square header-icon fa-3x"></i>
+        <div class="add-icon-wrapper"
+             onclick="go_posting(`{{ user['id'] }}`)">
+            <i class="far fa-plus-square header-icon fa-3x"></i>
         </div>
     </div>
     <div id="container">
@@ -80,8 +79,8 @@
                 </div>
                 <div class="post-body">
                     <div class="post-img">
-                    <img src="/static/img/xmas.jpeg">
-                        </div>
+                        <img src="/static/img/xmas.jpeg">
+                    </div>
                     <div class="post-icons-wrapper">
                         <div class="left-wrapper">
                             <!-- 아이콘 크기가 달라서 부득이 하게 이렇게 만들었으나, 클래스 없이 img로 처리하는게 맞습니다! -->
@@ -119,9 +118,9 @@
                     </div>
                 </div>
                 <div class="post-body">
-                      <div class="post-img">
-                    <img src="/static/img/xmas.jpeg">
-                      </div>
+                    <div class="post-img">
+                        <img src="/static/img/xmas.jpeg">
+                    </div>
                     <div class="post-icons-wrapper">
                         <div class="left-wrapper">
                             <!-- 아이콘 크기가 달라서 부득이 하게 이렇게 만들었으나, 클래스 없이 img로 처리하는게 맞습니다! -->
@@ -130,7 +129,7 @@
                             <i class="far fa-paper-plane post-icon-3 fa-3x"></i>
                         </div>
                         <div class="right-wrapper">
-                               <i class="far fa-star fa-3x"></i>
+                            <i class="far fa-star fa-3x"></i>
                         </div>
                     </div>
                 </div>

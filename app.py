@@ -19,44 +19,11 @@ import jwt
 # 토큰에 만료시간을 줘야하기 때문에, datetime 모듈도 사용합니다.
 import datetime
 
-import io
 
 #################################
 ##  이미지 파일 전송부분            ##
 #################################
 
-import gridfs
-
-
-@app.route('/api/fileupload', methods=['POST'])
-def upload_file():
-    f = request.data
-    fs = gridfs.GridFS(db)
-    imageId = fs.put(f)
-    print(f)
-    print('imageid:', imageId)
-
-    doc = {
-        'name': 'ddd',
-        'file': imageId
-    }
-
-    db.data.insert_one(doc)
-
-    return jsonify({'result': 'success'})
-
-
-@app.route('/api/readimage', methods=['GET'])
-def read_image():
-    data = db.data.find_one({'name': 'ddd'})
-    fs = gridfs.GridFS(db)
-    data = data['file']
-    data = fs.get(data)
-    print(data)
-    data = data.read()
-    print('ddd', io.BytesIO(data).read())
-    # return send_file(io.BytesIO(data), mimetype='image.png', as_attachment=True, attachment_filename='%s.png' % 'fds')
-    return send_file(io.BytesIO(data), mimetype='image.png')
 
 
 import hashlib
@@ -107,7 +74,16 @@ def profile_info():
 
 @app.route('/posting')
 def posting():
-    return render_template('create_post.html')
+    token_receive = request.cookies.get('token')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"id": payload['id']})
+        return render_template('create_post.html',user=user_info)
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+        # 만약 해당 token이 올바르게 디코딩되지 않는다면, 아래와 같은 코드를 실행합니다.
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 
 #################################

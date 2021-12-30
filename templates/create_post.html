@@ -6,29 +6,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <title>Posting</title>
     <link rel="stylesheet" type="text/css" href="./static/styles/posting.css"/>
+    {#    <script type="text/javascript" src="./static/js/posting.js"></script>#}
     <script type="text/javascript" src="./static/js/posting.js"></script>
 </head>
 <body>
     <div id="container">
-        <div id="img-check-wrapper">
-            <h2><b>이미지 미리보기</b></h2>
-            <div class="input_wrap">
-                <a href="javascript:" onclick="fileUploadAction()" class="my_button">파일 업로드</a>
-                <input type="file" id="input_imgs" multiple>
-            </div>
-        </div>
-        <div>
-            <div class="imgs_wrap">
-                <img id="img">
-            </div>
-        </div>
-       <a href="javascript:" class="my_button" onclick="upload_file()">업로드</a>
+       <div id="img-wrapper">
+
+       </div>
+    {#        <div id="img-check-wrapper">#}
+    {#            <h2><b>이미지 미리보기</b></h2>#}
+    {#            <div class="input_wrap">#}
+    {#                <a href="javascript:" onclick="fileUploadAction()" class="my_button">파일 업로드</a>#}
+    {#                <input type="file" id="input_imgs" multiple>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#        <div>#}
+    {#            <div class="imgs_wrap">#}
+    {#                <img id="img">#}
+    {#            </div>#}
+    {#        </div>#}
+        <a href="javascript:" class="my_button" onclick="upload_file()">업로드</a>
         <div id="posting-wrapper">
             <input id="title" placeholder="제목"/>
-            <input id="content" placeholder="내용"/>
-
             <button class="btn" onclick="create_post()">등록하기</button>
-            </div>
+        </div>
     </div>
 </body>
 
