@@ -94,14 +94,15 @@ def home():
 
 
 
-# mongodb에서 원하는 조건의 데이터를 불러왔습니다. 이후 filter를 통해서 가져오는 방식으로 조건을 줄 생각입니다.
-@app.route('/profile')
-def profile():
-    # myname = "seunghwan"
-    # myphoto = "photo"
-    # return render_template("profile.html", name=myname, photo=myphoto)
-    user = db.users.find_one({'username': '123'}, {'_id': False})
-    return render_template('profile.html', user=user)
+# mongodb에서 원하는 조건의 데이터를 불러왔습니다.
+@app.route('/profile', methods=['GET'])
+def api_valid():
+    token_receive = request.cookies.get('token')
+    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+    print(payload)
+    userinfo = db.user.find_one({'id': payload['id']}, {'_id': False})
+    return render_template('profile.html', user=userinfo)
+
 
 
 @app.route('/posting')
@@ -202,6 +203,14 @@ def create_post():
     ##  프로필화면을 위한 API            ##
     #################################
 
+
+# @app.route('/profile', methods=['GET'])
+# def api_valid():
+#     token_receive = request.cookies.get('token')
+#     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+#     print(payload)
+#     userinfo = db.user.find_one({'id': payload['id']}, {'_id': False})
+#     return render_template('profile.html', user=userinfo)
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5002, debug=True)
