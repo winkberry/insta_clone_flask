@@ -23,7 +23,7 @@
             {% endif %}
             <h1 class="title">로그인 페이지</h1>
             <div class="container">
-                <div class="field is-horizontal">
+                <div class="field is-horizontal range">
                     <div class="field-label is-normal">
                         <label class="label" for="id">ID</label>
                     </div>
@@ -31,24 +31,24 @@
                         <div class="field">
                             <div class="control">
                                 <input type="text" class="input" id="id" aria-describedby="emailHelp"
-                                       placeholder="ID">
+                                       placeholder="ID를 입력하세요">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="field is-horizontal">
+                <div class="field is-horizontal range">
                     <div class="field-label is-normal">
                         <label class="label" for="pw">PW</label>
                     </div>
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input type="password" class="input" id="pw" placeholder="Password">
+                                <input type="password" class="input" id="pw" placeholder="비밀번호를 입력하세요">
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="button is-primary" onclick=login()>로그인</button>
+                <button class="button is-primary range" onclick=login()>로그인</button>
             </div>
         </div>
     </div>
