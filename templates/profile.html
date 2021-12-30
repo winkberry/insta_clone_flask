@@ -15,22 +15,35 @@
         <!--# 프로필 상단 컨테이너입니다-->
         <div id="profile-header">
             <!--# user의 {name},{photo},{e-mail}을 편집할 수 있습니다-->
-            <h3>{{ user['id'] }}!</h3>
-            <h3>{{ user['email'] }}!</h3>
+            <h3>{{ user['id'] }}</h3>
+            <h3>{{ user['email'] }}</h3>
+            <h3>{{ user['img'] }}</h3>
             <!--<h3>{{ user['pw'] }}!</h3>-->
             <!--# 클릭하여 로그아웃할 수 있습니다-->
             <button onclick="sign_out()" id="sign-out">로그아웃</button>
             <!--# 클릭하여 user의 프로필을 편집할 수 있습니다-->
-            <!--<button onclick="update_profile()" id="profile-edit">프로필 편집</button>-->
+            <button onclick="update_profile()" id="update_profile">프로필 편집</button>-->
+            <!--# 클릭하여 user의 계정을 삭제할 수 있습니다-->
+            <button onclick="delete_private_info()" id="delete_private_info()">프로필 삭제</button>-->
         </div>
+        <line><hr></line>
         <!--# 자신의 게시물을 모아볼 수 있도록 구성합니다-->
         <div id="profile-body">
-            <!--<h5>{{ photo }}!</h5>회원가입에서 받은 photo url 필요-->
+            <!--post.html에서 현재 로그인한 유저의 post만 가져올 수 있도록 특정 값 받아서 노출 필요-->
+            <div class="post-like-wrapper">
+                <img src="/static/img/xmas1.jpeg">
+            </div>
+            <div class="post-like-wrapper">
+                <img src="/static/img/xmas1.jpeg">
+            </div>
         </div>
+        <line><hr></line>
         <!--# 프로필 하단 컨테이너입니다-->
         <div id="profile-footer">
-            <!--# 메인페이지로 돌아가는 버튼입니다-->
-            <button class="go_back_to_main" onclick="to_main()">메인으로 돌아가기</button>
+            <!--# 클릭으로 메인페이지로 돌아갈 수 있습니다-->
+            <div onclick="to_main()">
+                <img src="/static/img/home@3x.png">
+            </div>
         </div>
     </div>
 
