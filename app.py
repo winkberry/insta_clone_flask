@@ -40,7 +40,7 @@ class JSONEncoder(json.JSONEncoder):
 @app.route('/')
 def home():
     # # 현재 이용자의 컴퓨터에 저장된 cookie 에서 mytoken 을 가져옵니다.
-    token_receive = request.cookies.get('mytoken')
+    token_receive = request.cookies.get('token')
     try:
          # token을 decode하여 payload를 가져오고, payload 안에 담긴 유저 id를 통해 DB에서 유저의 정보를 가져옵니다.
          payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
