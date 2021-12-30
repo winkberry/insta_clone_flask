@@ -24,6 +24,7 @@ body {
     top: 0;
     max-width: 720px;
     border-bottom: 1px solid gray;
+     z-index: 3;
 }
 
 
@@ -153,6 +154,7 @@ body {
 
 .right-wrapper > i {
     color: cornflowerblue;
+    z-index: 1;
 }
 
 /* 포스트 - 헤더 */
@@ -216,23 +218,27 @@ body {
     margin: 2% 4%;
     width: 14%;
     color: cornflowerblue;
+    z-index: 1;
 
 }
 
 .post-body .post-icons-wrapper .left-wrapper .post-icon:hover {
     color: darkorange;
+     z-index: 1;
 }
 
 .post-body .post-icons-wrapper .left-wrapper .post-icon-2 {
     margin: 2% 4%;
     width: 13%;
     color: cornflowerblue;
+     z-index: 1;
 }
 
 .post-body .post-icons-wrapper .left-wrapper .post-icon-3 {
     margin: 2% 4%;
     width: 14%;
     color: cornflowerblue;
+     z-index: 1;
 
 }
 
