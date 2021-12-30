@@ -11,14 +11,19 @@
 <body>
     <div id="container">
         <div id="img-check-wrapper">
-            {# img url 은 url로 받아온 사진들 보여주는 공간입니다  #}
-            <div id="img-url"></div>
-            <input id="url" placeholder="포토 URL"/>
-            <button class="btn" onclick="get_url()">사진확인</button>
+            <h2><b>이미지 미리보기</b></h2>
+            <div class="input_wrap">
+                <a href="javascript:" onclick="fileUploadAction()" class="my_button">파일 업로드</a>
+                <input type="file" id="input_imgs" multiple>
+            </div>
         </div>
+        <div>
+            <div class="imgs_wrap">
+                <img id="img">
+            </div>
+        </div>
+       <a href="javascript:" class="my_button" onclick="upload_file()">업로드</a>
         <div id="posting-wrapper">
-
-
             <input id="title" placeholder="제목"/>
             <input id="content" placeholder="내용"/>
 
