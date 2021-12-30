@@ -12,10 +12,11 @@ function get_feed() {
             // console.log(response)
             let rows = JSON.parse(response)
             for (let i = rows.length-1; i >= 0; i--){
-                let post_photo = rows[i]['post_photo']
-                let post_photo_content = rows[i]['post_photo_content']
-                let username = rows[i]['user']['username']
-                let profile_photo = rows[i]['user']['profile_photo']
+                let post_photo = rows[i]['file']
+                let post_photo_content = rows[i]['content']
+                let username = rows[i]['user']['id']
+                let profile_photo = rows[i]['user']['img']
+                let create_time = rows[i]['create_time']
 
 
                 let temp_html = `<div class="post-wrapper">
@@ -30,7 +31,7 @@ function get_feed() {
                                     </div>
                                     <div class="post-body">
                                         <div class="post-img">
-                                        <img src="${post_photo}">
+                                        <img src="/static/post/${post_photo}">
                                             </div>
                                         <div class="post-icons-wrapper">
                                             <div class="left-wrapper">
@@ -54,7 +55,7 @@ function get_feed() {
                                             <p class="post-content">${post_photo_content}</p>
                                         </div>
                                         <p class="post-time">
-                                            8시간 전
+                                            ${create_time}
                                         </p>
                                     </div>
                                 </div>`
@@ -68,10 +69,10 @@ function get_feed() {
 }
 
 //로그인한 유저의 이름을 보내준다
-function go_profile() {
-    window.location.href = `/profile?username=${'123'}` //일단은 123으로 보내준다
+function go_profile(username) {
+    window.location.href = `/profile` //일단은 123으로 보내준다
 }
 
 function go_posting(id) {
-    window.location.href = `/posting?id=${id}`
+    window.location.href = `/post/create`
 }

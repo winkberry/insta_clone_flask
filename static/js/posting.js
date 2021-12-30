@@ -1,26 +1,27 @@
-function create_post(user_info) {
-    let title = $('#title').val()
+function create_post() {
+    let content = $("#content").val();
     let file = $('#file')[0].files[0]
-    if (title === "" && !file) {
-        alert('빈칸이 있습니다')
-        return
+    if (content === "" && !file) {
+        alert('내용을 작성해 주세요!')
+        return;
     }
+
     let form_data = new FormData()
-    form_data.append("title_give", title)
-    form_data.append("file_give", file)
-    form_data.append('user_give', user_info)
+    form_data.append("content", content);
+    form_data.append("file", file);    
 
     $.ajax({
         type: 'POST',
-        url: '/api/posting',
+        url: '/post/create',
         cache: false,
         contentType: false,
         processData: false,
         data: form_data,
         success: function (response) {
             alert(response['msg'])
-            window.location.href='/'
+            window.location.replace('/')
         }
+        
     })
 }
 

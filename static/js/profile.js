@@ -15,6 +15,19 @@ $(document).ready(function () {
             window.location.href = "/"
         }
 
+        function remove() {
+            $.ajax({
+                type: "POST",
+                url: "/api/user_delete",
+                data: {},
+                success: function(response) {
+                    alert('삭제되었습니다')
+                    caches.delete('token').then(function (){
+                        window.location.href='/login'
+                    })
+                }
+               });
+            }
 
         /*프로필편집 기능 함수*/
 
