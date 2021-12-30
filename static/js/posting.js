@@ -1,17 +1,22 @@
-
-function create_post() {
-    let url = $('#url').val()
-    // let username = $('#username').val() //login 하면 받는다
+function create_post(user_info) {
     let title = $('#title').val()
-    if (url === "" && title === "") {
+    let file = $('#file')[0].files[0]
+    if (title === "" && !file) {
         alert('빈칸이 있습니다')
         return
     }
+    let form_data = new FormData()
+    form_data.append("title_give", title)
+    form_data.append("file_give", file)
+    form_data.append('user_give', user_info)
 
     $.ajax({
         type: 'POST',
         url: '/api/posting',
-        data: {title_give: title, url_give: url, content_give: content},
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: form_data,
         success: function (response) {
             window.location.reload()
         }
