@@ -118,3 +118,10 @@ body {
     margin-top: 25px;
 
 }
+
+/* a 링크 태그 스타일*/
+.regist-wrapper > a {
+    color: #1A71BD;
+    text-decoration-line: none;
+    margin-left: 5px;
+}
