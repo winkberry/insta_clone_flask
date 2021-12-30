@@ -4,21 +4,9 @@ $(document).ready(function () {
 
         /*로그아웃 하기*/
         function sign_out() {
-            $.removeCookie('mytoken', {path: '/'});
-            alert('로그아웃!')
+            $.removeCookie('token', {path: '/'});
+            alert('정상적으로 로그아웃 되었습니다!')
             window.location.href = "/login"
-        }
-
-        /*로그아웃 하기*/
-        function get_profile() {
-            $.ajax({
-                type: 'GET',
-                url: `/profile?username=`,
-                data: {},
-                success: function (response) {
-                    console.log(response)
-                }
-            })
         }
 
         /*메인페이지로 돌아가는 함수.*/
@@ -28,6 +16,7 @@ $(document).ready(function () {
         }
 
 
+        /*프로필편집 기능 함수*/
 
         /*function update_profile() {
             let name = $('#input-name').val()
