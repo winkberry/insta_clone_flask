@@ -165,15 +165,24 @@ def api_feed():
 
 @app.route('/api/posting', methods=['POST'])
 def create_post():
-    url_receive = request.form['url_give']
     title_receive = request.form['title_give']
+    user_receive = request.form['user_give']
+    file = request.files['file_give']
+
+    extension = file.filename.split('.')[-1]
+    today = datetime.datetime.now()
+    mytime = today.strftime('%Y-%m-%d-%H-%M-%S')  # 올리는 시간
+    filename = f'{title_receive}-{mytime}'  # 파일이름
+    save_to = f'static/post/{user_receive}-{filename}.{extension}'  # 파일 경로
+    file.save(save_to)  # 파일 저장
+    user_info = db.users.find_one({'id': user_receive})
+
     doc = {
-        'title': title_receive,
-        'photo': url_receive,
-        'username': '123',
+        'user': user_info,
+        'photo_name': f'{filename}.{extension}',
+        'post_photo_content': title_receive,
     }
-    db.posts.insert_one(doc)
-    return jsonify({'msg': "저장 완료"})
+
 
     #################################
     ##  프로필화면을 위한 API            ##
