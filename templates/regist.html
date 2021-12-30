@@ -13,12 +13,68 @@
 
 로고
 <div>
-    <form>
-        <input id='userid' type='text' placeholder="ID"/><br>
-        <input id='pwd' type='password' placeholder="비밀번호"/><br>
-        <input id='user-email' type='text' placeholder="이메일 주소"/>
-    </form>
-    <button class="login-btn">회원가입</button>
+    <div class="section has-text-centered">
+        <h1 class="title">회원가입 페이지</h1>
+        <div class="container" style="width:60%">
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="id">ID</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input type="text" class="input" id="id" aria-describedby="emailHelp"
+                                   placeholder="ID">
+                        </div>
+                        <div id="btn-check-dup">
+                            <button onclick=check_duplicate()>중복확인</button>
+                        </div>                            
+                    </div>
+                    <p id="help-id">아이디는 5-15자의 영문과 숫자와 일부 특수문자(._-)만 입력 가능합니다.</p>
+                    <p id="help-id-login" class="is-danger"></p>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="pw">PW</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input type="password" class="input" id="pw" placeholder="PW">
+                        </div>
+                    </div>
+                    <p id="help-password">영문과 숫자 조합의 8-20자의 비밀번호를 설정해주세요.</p>
+                </div>
+            </div>                
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="email">e-mail</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input type="text" class="input" id="email" placeholder="e-mail">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="user-img">Image</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input type="text" class="input" id="user-img" placeholder="URL">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <button disabled id='create-btn' class="button is-primary" onclick=registerCheck()>회원가입</button>
+        </div>
+    </div>
 </div>
 
 </body>
