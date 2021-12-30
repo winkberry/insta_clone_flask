@@ -35,12 +35,14 @@ function handleImgFileSelect(e){
             alert('확장자는 이미지 확장자만 가능합니다')
             return
         }
-
-        sel_files.push(f)
-
+        sel_files.push(f) //파일 저장
         var reader = new FileReader()
+
+        // 이미지 미리보기 기능
         reader.onload = function (e){
-            var html = `<a></a>`
+            var html = `<a>
+                            
+                        </a>` // html 로 설정가능
             $('.imgs_wrap').append(html)
             index++
         }
