@@ -38,7 +38,7 @@ function register() {
 
     $.ajax({
         type: 'POST',
-        url: '/api/register',
+        url: '/register',
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(data),
         success: function (response) {
