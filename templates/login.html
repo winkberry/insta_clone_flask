@@ -17,16 +17,43 @@
         <div class="logo">
         로고
         </div>
-        <div>
-            <form>
-                <input id='userid' type='text' placeholder="사용자 이름"/><br>
-                <input id='pwd' type='password' placeholder="비밀번호"/>
-            </form>
-            <button class="login-btn">로그인</button>
+        <div class="login-body">
+            {% if msg %}
+                {{ msg }}
+            {% endif %}  
+            <h1 class="title">로그인 페이지</h1>
+            <div class="container" style="width:60%">
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label" for="id">ID</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input type="text" class="input" id="id" aria-describedby="emailHelp"
+                                    placeholder="ID">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label" for="pw">PW</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input type="password" class="input" id="pw" placeholder="Password">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="button is-primary" onclick=login()>로그인</button>
+            </div>
         </div>
     </div>
     <div class="regist-box">
-        계정이 없으신가요? 가입하기
+        계정이 없으신가요? <a href="/register">가입하기</a> 
     </div>
 </div>
 
