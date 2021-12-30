@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for,send_file
+from flask import Flask, render_template, request, jsonify, redirect, url_for, send_file
 from pymongo import MongoClient
 import certifi
 
@@ -82,7 +82,7 @@ def home():
     try:
          # token을 decode하여 payload를 가져오고, payload 안에 담긴 유저 id를 통해 DB에서 유저의 정보를 가져옵니다.
          payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-         user_info = db.user.find_one({"id": payload['id']})
+         user_info = db.users.find_one({"id": payload['id']})
          return render_template('index.html', user = user_info)  
 
     # # 만약 해당 token의 로그인 시간이 만료되었다면, 아래와 같은 코드를 실행합니다.
@@ -96,11 +96,11 @@ def home():
 
 # mongodb에서 원하는 조건의 데이터를 불러왔습니다.
 @app.route('/profile', methods=['GET'])
-def api_valid():
+def profile_info():
     token_receive = request.cookies.get('token')
     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
     print(payload)
-    userinfo = db.user.find_one({'id': payload['id']}, {'_id': False})
+    userinfo = db.users.find_one({'id': payload['id']}, {'_id': False})
     return render_template('profile.html', user=userinfo)
 
 
@@ -203,7 +203,7 @@ def create_post():
     ##  프로필화면을 위한 API            ##
     #################################
 
-
+# 계정 삭제가 가능합니다.
 # @app.route('/profile', methods=['GET'])
 # def api_valid():
 #     token_receive = request.cookies.get('token')
