@@ -6,7 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="./static/styles/login.css" />
+    <link rel="stylesheet" type="text/css" href="/static/styles/login.css" />
     <script type="text/javascript" src="./static/js/login.js"></script>
 
 </head>
@@ -15,14 +15,14 @@
 <div class="main-box">
     <div class="login-box">
         <div class="logo">
-        로고
+            <p id="logo">Around Space</p>
         </div>
         <div class="login-body">
             {% if msg %}
                 {{ msg }}
-            {% endif %}  
+            {% endif %}
             <h1 class="title">로그인 페이지</h1>
-            <div class="container" style="width:60%">
+            <div class="container">
                 <div class="field is-horizontal">
                     <div class="field-label is-normal">
                         <label class="label" for="id">ID</label>
@@ -31,7 +31,7 @@
                         <div class="field">
                             <div class="control">
                                 <input type="text" class="input" id="id" aria-describedby="emailHelp"
-                                    placeholder="ID">
+                                       placeholder="ID">
                             </div>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
         </div>
     </div>
     <div class="regist-box">
-        계정이 없으신가요? <a href="/register">가입하기</a> 
+        계정이 없으신가요? <a href="/register">가입하기</a>
     </div>
 </div>
 
