@@ -165,9 +165,12 @@ body {
     width: 100%;
 }
 
+
 .post-header .left-wrapper img {
-    width: 15%;
-    height: 15%;
+    width: 5vw;
+    height: 5vw;
+    max-width: 50px;
+    max-height: 50px;
     border-radius: 50%;
     border: 1px solid lightgray;
     margin: 3% 2%;
@@ -254,12 +257,15 @@ body {
 }
 
 .post-footer .post-like-wrapper img {
-    width: 6%;
-    height: 6%;
+    width: 3vw;
+    height: 3vw;
+    max-width: 30px;
+    max-height: 30px;
     border-radius: 50%;
     border: 1px solid lightgray;
     margin: 0 1%;
 }
+
 
 .post-footer .post-like-wrapper p {
     margin-bottom: 2%;
