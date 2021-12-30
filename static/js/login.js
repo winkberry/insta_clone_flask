@@ -11,6 +11,9 @@ function login() {
         data: JSON.stringify(data),
         success: function (response) {
             if (response["result"] == "success") {
+                caches.delete('token').then(function (){
+                        window.location.href='/login'
+                    })
                 $.cookie('token', response['token']);
                 alert('로그인 하였습니다.');
                 window.location.href = '/';

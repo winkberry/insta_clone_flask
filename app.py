@@ -233,7 +233,7 @@ def remove():
     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
     print(payload)
     db.users.delete_one({'id': payload['id']})
-    return render_template('login.html')
+    return jsonify({'msg': '삭제되었습니다'})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5004, debug=True)
