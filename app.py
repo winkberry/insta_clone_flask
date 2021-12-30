@@ -65,7 +65,8 @@ def profile_info():
     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
     print(payload)
     userinfo = db.users.find_one({'id': payload['id']}, {'_id': False})
-    return render_template('profile.html', user=userinfo)
+    # userpost = db.post.find_one({'id': payload['id']}, {'_id': False})
+    return render_template('profile.html', user=userinfo) #, post=userpost)
 
 
 @app.route('/posting')
@@ -192,14 +193,14 @@ def create_post():
     ##  프로필화면을 위한 API            ##
     #################################
 
-# 계정 삭제가 가능합니다.
-# @app.route('/profile', methods=['GET'])
-# def api_valid():
-#     token_receive = request.cookies.get('token')
-#     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-#     print(payload)
-#     userinfo = db.user.find_one({'id': payload['id']}, {'_id': False})
-#     return render_template('profile.html', user=userinfo)
+ ## 계정 삭제가 가능합니다. ##
+@app.route('/profile', methods=['POST'])
+def remove():
+    token_receive = request.cookies.get('token')
+    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+    print(payload)
+    userinfo = db.users.remove()
+    return render_template('profile.html', user=userinfo)
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
