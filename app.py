@@ -227,13 +227,13 @@ def post_create():
     #################################
 
  ## 계정 삭제가 가능합니다. ##
-@app.route('/profile', methods=['POST'])
+@app.route('/api/user_delete', methods=['POST'])
 def remove():
     token_receive = request.cookies.get('token')
     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
     print(payload)
-    userinfo = db.users.remove()
-    return render_template('profile.html', user=userinfo)
+    db.users.delete_one({'id': payload['id']})
+    return render_template('login.html')
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+    app.run('0.0.0.0', port=5004, debug=True)
