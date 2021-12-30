@@ -18,6 +18,7 @@ function create_post(user_info) {
         processData: false,
         data: form_data,
         success: function (response) {
+            alert(response['msg'])
             window.location.reload()
         }
     })

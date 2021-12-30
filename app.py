@@ -179,9 +179,13 @@ def create_post():
 
     doc = {
         'user': user_info,
-        'photo_name': f'{filename}.{extension}',
+        'post_photo': f'{filename}.{extension}',
         'post_photo_content': title_receive,
     }
+
+    db.posts.insert_one(doc)
+
+    return jsonify({'msg':'저장완료'})
 
 
     #################################
@@ -198,4 +202,4 @@ def create_post():
 #     return render_template('profile.html', user=userinfo)
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5002, debug=True)
+    app.run('0.0.0.0', port=5000, debug=True)
