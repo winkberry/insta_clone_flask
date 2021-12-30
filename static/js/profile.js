@@ -4,8 +4,8 @@ $(document).ready(function () {
 
         /*로그아웃 하기*/
         function sign_out() {
-            $.removeCookie('mytoken', {path: '/'});
-            alert('로그아웃!')
+            $.removeCookie('token', {path: '/'});
+            alert('정상적으로 로그아웃 되었습니다!')
             window.location.href = "/login"
         }
 
