@@ -18,6 +18,7 @@ body {
     align-items: center;
     width: 100%;
     position: fixed;
+    top: 0;
     max-width: 720px;
     border-bottom: 1px solid gray;
 }
@@ -31,6 +32,13 @@ body {
     background-image: linear-gradient(100deg, deeppink, coral, greenyellow, deepskyblue, blue, purple);
     -webkit-background-clip: text;
     color: transparent;
+
+}
+
+.logo-wrapper {
+    margin-left: 10%;
+    text-align: center;
+     flex-grow: 2;
 }
 
 #logo:hover, #logo:focus { animation-duration: 3s; animation-name: rainbowLink; animation-iteration-count: infinite; animation-timing-function: ease-in; }
@@ -45,9 +53,18 @@ body {
  100% { color: #e82aff; }
 }
 
+.add-icon-wrapper {
+    width: 10%;
+ flex-grow: 0;
+}
+
+.header-icon {
+    color: cornflowerblue;
+}
+
 /* 컨테이너 */
 #container {
-    padding-top: 12%;
+    padding-top: 10%;
     padding-bottom: 12%;
 }
 
@@ -61,12 +78,16 @@ body {
     justify-content: flex-start;
     align-items: center;
     overflow: hidden;
+    top: 0;
 
 }
 
 .story-wrapper {
     width: auto;
-    margin: 2.5% 3.2%;
+    margin-top: 0;
+    margin-bottom: 2.5%;
+    margin-left: 3.2%;
+    margin-right: 3.2%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -127,6 +148,10 @@ body {
 
 }
 
+.right-wrapper > i {
+    color: cornflowerblue;
+}
+
 /* 포스트 - 헤더 */
 
 .post-header {
@@ -145,7 +170,7 @@ body {
     height: 15%;
     border-radius: 50%;
     border: 1px solid lightgray;
-    margin: 0 2%;
+    margin: 3% 2%;
 }
 
 .post-header .left-wrapper p {
@@ -184,12 +209,25 @@ body {
 .post-body .post-icons-wrapper .left-wrapper .post-icon {
     margin: 2% 4%;
     width: 14%;
+    color: cornflowerblue;
 
+}
+
+.post-body .post-icons-wrapper .left-wrapper .post-icon:hover {
+    color: darkorange;
 }
 
 .post-body .post-icons-wrapper .left-wrapper .post-icon-2 {
     margin: 2% 4%;
     width: 13%;
+    color: cornflowerblue;
+}
+
+.post-body .post-icons-wrapper .left-wrapper .post-icon-3 {
+    margin: 2% 4%;
+    width: 14%;
+    color: cornflowerblue;
+
 }
 
 .post-body .post-icons-wrapper .right-wrapper img {
