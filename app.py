@@ -23,6 +23,16 @@ import datetime
 # 그렇지 않으면, 개발자(=나)가 회원들의 비밀번호를 볼 수 있으니까요.^^;
 import hashlib
 
+import json
+from bson import ObjectId
+
+
+class JSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        return json.JSONEncoder.default(self, o)
+
 
 #################################
 ##  HTML을 주는 부분             ##
@@ -35,13 +45,15 @@ def home():
     #     # 암호화되어있는 token의 값을 우리가 사용할 수 있도록 디코딩(암호화 풀기)해줍니다!
     #     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
     #     user_info = db.user.find_one({"id": payload['id']})
-        return render_template('index.html') #, nickname=user_info["nick"]
-    # # 만약 해당 token의 로그인 시간이 만료되었다면, 아래와 같은 코드를 실행합니다.
-    # except jwt.ExpiredSignatureError:
-    #     return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
-    #     # 만약 해당 token이 올바르게 디코딩되지 않는다면, 아래와 같은 코드를 실행합니다.
-    # except jwt.exceptions.DecodeError:
-    #     return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+    return render_template('index.html')  # , nickname=user_info["nick"]
+
+
+# # 만약 해당 token의 로그인 시간이 만료되었다면, 아래와 같은 코드를 실행합니다.
+# except jwt.ExpiredSignatureError:
+#     return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+#     # 만약 해당 token이 올바르게 디코딩되지 않는다면, 아래와 같은 코드를 실행합니다.
+# except jwt.exceptions.DecodeError:
+#     return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 
 @app.route('/login')
@@ -55,17 +67,19 @@ def register():
     return render_template('regist.html')
 
 
+# mongodb에서 원하는 조건의 데이터를 불러왔습니다. 이후 filter를 통해서 가져오는 방식으로 조건을 줄 생각입니다.
 @app.route('/profile')
-def main():
-    myname = "seunghwan"
-    myphoto = "photo"
-    return render_template("profile.html", name=myname, photo=myphoto)
+def profile():
+    # myname = "seunghwan"
+    # myphoto = "photo"
+    # return render_template("profile.html", name=myname, photo=myphoto)
+    user = db.users.find_one({'username': '123'}, {'_id': False})
+    return render_template('profile.html', user=user)
 
 
 @app.route('/posting')
 def posting():
     return render_template('create_post.html')
-
 
 
 #################################
@@ -120,7 +134,6 @@ def api_login():
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
 
-
 # [유저 정보 확인 API]
 # 로그인된 유저만 call 할 수 있는 API입니다.
 # 유효한 토큰을 줘야 올바른 결과를 얻어갈 수 있습니다.
@@ -148,43 +161,34 @@ def api_valid():
     except jwt.exceptions.DecodeError:
         return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
 
-
-
     #################################
     ##  메인화면을 위한 API            ##
     #################################
+
+
 @app.route('/api/feed', methods=['GET'])
 def api_feed():
     all_feed = list(db.posts.find({}, {'_id': 0}))
-    return jsonify(all_feed)
+    jsonfeed = JSONEncoder().encode(all_feed)
+    return jsonify(jsonfeed)
+
 
 @app.route('/api/posting', methods=['POST'])
 def create_post():
     url_receive = request.form['url_give']
     title_receive = request.form['title_give']
-    content_receive = request.form['content_give']
     doc = {
         'title': title_receive,
         'photo': url_receive,
-        'content': content_receive,
         'username': '123',
     }
     db.posts.insert_one(doc)
-    return jsonify({'msg':"저장 완료"})
+    return jsonify({'msg': "저장 완료"})
 
     #################################
     ##  프로필화면을 위한 API            ##
     #################################
 
-# /api/profile?username=username
-@app.route('/profile', methods=['GET'])
-def api_profile():
-    username = request.args.get('username')
-    return jsonify()
-
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5002, debug=True)
-
-
-
