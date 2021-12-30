@@ -5,9 +5,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <title>Posting</title>
-    <link rel="stylesheet" type="text/css" href="./static/styles/posting.css"/>
-    {#    <script type="text/javascript" src="./static/js/posting.js"></script>#}
-    <script type="text/javascript" src="./static/js/posting.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/styles/posting.css"/>
+    {#    <script type="text/javascript" src="/static/js/posting.js"></script>#}
+    <script type="text/javascript" src="/static/js/posting.js"></script>
 </head>
 <body>
     <div id="container">
@@ -23,13 +23,15 @@
     {#                <img id="img">#}
     {#            </div>#}
     {#        </div>#}
-        <div id="img-wrapper">
-            <input type="file" id="file">
-       </div>
-        <div id="posting-wrapper">
-            <input id="title" placeholder="제목"/>
-            <button class="btn" onclick="create_post(`{{ user['id'] }}`)">등록하기</button>
+    <div id="posting-wrapper">  
+        <div class="img-wrapper">
+           <input type="file" id="file">
+        </div>          
+        <div class="form-group">
+            <label for="content">내용</label>
+            <textarea class="form-control" name="content" id="content" rows="10"></textarea>
         </div>
+        <button class="btn" onclick=create_post()>등록하기</button>
     </div>
 </body>
 

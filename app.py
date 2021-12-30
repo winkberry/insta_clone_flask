@@ -69,22 +69,22 @@ def profile_info():
     return render_template('profile.html', user=userinfo) #, post=userpost)
 
 
-@app.route('/posting')
-def posting():
-    id = request.args.get('id')
-    token_receive = request.cookies.get('token')
-    try:
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.users.find_one({"id": payload['id']})
-        if id == user_info['id']:
-            return render_template('create_post.html', user=user_info)
-        else:
-            return redirect(url_for("home", msg="권한이 없습니다."))
-    except jwt.ExpiredSignatureError:
-        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
-        # 만약 해당 token이 올바르게 디코딩되지 않는다면, 아래와 같은 코드를 실행합니다.
-    except jwt.exceptions.DecodeError:
-        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+# @app.route('/posting')
+# def posting():
+#     id = request.args.get('id')
+#     token_receive = request.cookies.get('token')
+#     try:
+#         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+#         user_info = db.users.find_one({"id": payload['id']})
+#         if id == user_info['id']:
+#             return render_template('create_post.html', user=user_info)
+#         else:
+#             return redirect(url_for("home", msg="권한이 없습니다."))
+#     except jwt.ExpiredSignatureError:
+#         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+#         # 만약 해당 token이 올바르게 디코딩되지 않는다면, 아래와 같은 코드를 실행합니다.
+#     except jwt.exceptions.DecodeError:
+#         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 
 #################################
@@ -164,29 +164,62 @@ def api_feed():
     return jsonify(jsonfeed)
 
 
-@app.route('/api/posting', methods=['POST'])
-def create_post():
-    title_receive = request.form['title_give']
-    user_receive = request.form['user_give']
-    file = request.files['file_give']
 
-    extension = file.filename.split('.')[-1]
-    today = datetime.datetime.now()
-    mytime = today.strftime('%Y-%m-%d-%H-%M-%S')  # 올리는 시간
-    filename = f'{title_receive}-{mytime}'  # 파일이름
-    save_to = f'static/post/{user_receive}-{filename}.{extension}'  # 파일 경로
-    file.save(save_to)  # 파일 저장
-    user_info = db.users.find_one({'id': user_receive})
+@app.route('/post/create', methods = ['GET', 'POST'])
+def post_create():
 
-    doc = {
-        'user': user_info,
-        'post_photo': f'{filename}.{extension}',
-        'post_photo_content': title_receive,
-    }
+    token_receive = request.cookies.get('token')       
+    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+    user = db.users.find_one({"id": payload['id']})
+    
+    if request.method == 'POST':
+        
+        content = request.form['content']        
+        file = request.files['file']
+        extension = file.filename.split('.')[-1]
+        create_date = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+        filename = f'{user["id"]}-{create_date}'  # 파일이름
+        save_to = f'static/post/{filename}.{extension}'  # 파일 경로
+        file.save(save_to)  # 파일 저장
 
-    db.posts.insert_one(doc)
+        doc = {
+            'content': content,
+            'user': user,
+            'create_time': create_date,
+            'file': f'{filename}.{extension}',
+        }
 
-    return jsonify({'msg':'저장완료'})
+        db.posts.insert_one(doc)
+
+        return jsonify({'msg': "저장 완료"})
+    else:
+        return render_template('create_post.html')
+
+
+
+# @app.route('/api/posting', methods=['POST'])
+# def create_post():
+#     title_receive = request.form['title_give']
+#     user_receive = request.form['user_give']
+#     file = request.files['file_give']
+
+#     extension = file.filename.split('.')[-1]
+#     today = datetime.datetime.now()
+#     mytime = today.strftime('%Y-%m-%d-%H-%M-%S')  # 올리는 시간
+#     filename = f'{title_receive}-{mytime}'  # 파일이름
+#     save_to = f'static/post/{user_receive}-{filename}.{extension}'  # 파일 경로
+#     file.save(save_to)  # 파일 저장
+#     user_info = db.users.find_one({'id': user_receive})
+
+#     doc = {
+#         'user': user_info,
+#         'post_photo': f'{filename}.{extension}',
+#         'post_photo_content': title_receive,
+#     }
+
+#     db.posts.insert_one(doc)
+
+#     return jsonify({'msg':'저장완료'})
 
 
     #################################
