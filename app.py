@@ -166,8 +166,12 @@ def login():
         else:
             return jsonify({"msg": "회원 정보가 없습니다."})
     else:
-        msg = request.args.get("msg")
-        return render_template('login.html', msg=msg)
+        token = request.cookies.get('token')
+        if token != None:
+            return redirect(url_for('home'))
+        else:        
+            msg = request.args.get("msg")
+            return render_template('login.html', msg=msg)
 
 
 # [아이디 중복확인 API]
