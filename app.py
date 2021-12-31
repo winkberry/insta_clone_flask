@@ -26,6 +26,17 @@ import jwt
 import datetime
 
 #################################
+##  토큰 확인 함수                ##
+#################################
+
+def check_token():
+    # 현재 이용자의 컴퓨터에 저장된 cookie 에서 mytoken 을 가져옵니다.
+    token_receive = request.cookies.get('token')
+    # token을 decode하여 payload를 가져오고, payload 안에 담긴 유저 id를 통해 DB에서 유저의 정보를 가져옵니다.
+    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+    return db.users.find_one({'id': payload['id']}, {'_id': False})
+
+#################################
 ##  이미지 파일 전송부분            ##
 #################################
 
@@ -48,14 +59,9 @@ class JSONEncoder(json.JSONEncoder):
 #################################
 @app.route('/')
 def home():
-    # # 현재 이용자의 컴퓨터에 저장된 cookie 에서 mytoken 을 가져옵니다.
-    token_receive = request.cookies.get('token')
     try:
-        # token을 decode하여 payload를 가져오고, payload 안에 담긴 유저 id를 통해 DB에서 유저의 정보를 가져옵니다.
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.users.find_one({"id": payload['id']})
+        user_info = check_token()
         return render_template('index.html', user=user_info)
-
         # # 만약 해당 token의 로그인 시간이 만료되었다면, 아래와 같은 코드를 실행합니다.
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
@@ -67,10 +73,7 @@ def home():
 # mongodb에서 원하는 조건의 데이터를 불러왔습니다.
 @app.route('/profile', methods=['GET'])
 def profile_info():
-    token_receive = request.cookies.get('token')
-    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-    print(payload)
-    userinfo = db.users.find_one({'id': payload['id']}, {'_id': False})
+    userinfo = check_token()
     # userpost = db.post.find_one({'id': payload['id']}, {'_id': False})
     return render_template('profile.html', user=userinfo) #, post=userpost)
 
@@ -128,10 +131,7 @@ def register():
 ## user profile 노출 test 기능입니다. 나중에 삭제예정
 @app.route('/show')
 def show_user_info():
-    token_receive = request.cookies.get('token')
-    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])    
-    user_info = db.users.find_one({'id': payload['id']}, {'_id': False})
-
+    user_info = check_token()
     # 이미지 렌더링을 위해 base 64 형태의 데이터로 변환
     profile_img_binary = fs.get(user_info["img"])
     profile_img_base64 = codecs.encode(profile_img_binary.read(), 'base64')
@@ -192,10 +192,7 @@ def api_feed():
 
 @app.route('/post/create', methods = ['GET', 'POST'])
 def post_create():
-
-    token_receive = request.cookies.get('token')       
-    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-    user = db.users.find_one({"id": payload['id']})
+    user = check_token()
     
     if request.method == 'POST':
         
