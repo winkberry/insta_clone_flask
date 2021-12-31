@@ -78,7 +78,7 @@ def profile_info():
     profile_img_base64 = codecs.encode(profile_img_binary.read(), 'base64')
     profile_img = profile_img_base64.decode('utf-8')
 
-    return render_template('show.html', user=userinfo, profile_img=profile_img)
+    return render_template('profile.html', user=userinfo, profile_img=profile_img)
 
 
 # @app.route('/posting')
@@ -261,3 +261,4 @@ def remove():
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5004, debug=True)
+
