@@ -27,6 +27,9 @@ $(document).ready(function () {
                     })
                 }
                });
+            $.removeCookie('token', {path: '/'});
+            alert('정상적으로 로그아웃 되었습니다!')
+            window.location.href = "/login"
             }
 
         /*프로필편집 기능 함수*/
