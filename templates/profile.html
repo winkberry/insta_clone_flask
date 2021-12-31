@@ -28,16 +28,15 @@
         </div>
         <line><hr></line>
         <!--# 자신의 게시물을 모아볼 수 있도록 구성합니다-->
-{#        <div id="profile-body">#}
-{#            <!--post.html에서 현재 로그인한 유저의 post만 가져올 수 있도록 특정 값 받아서 노출 필요-->#}
-{#            <div>{{ post['post_photo_content'] }}</div>-->#}
-{#            <div class="post-like-wrapper">#}
-{#                <img src="/static/img/xmas1.jpeg">#}
-{#            </div>#}
-{#            <div class="post-like-wrapper">#}
-{#                <img src="/static/img/xmas1.jpeg">#}
-{#            </div>#}
-{#        </div>#}
+        <div id="image-container">
+            {% for post in posts %}
+                    <div id="profile-body">
+                    <p>{{ post['content'] }}</p>
+{#                        <img src="{{  }}" />#}
+                    </div>
+            {% endfor %}
+
+        </div>
         <line><hr></line>
         <!--# 프로필 하단 컨테이너입니다-->
         <div id="profile-footer">
