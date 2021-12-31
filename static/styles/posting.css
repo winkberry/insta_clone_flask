@@ -1,3 +1,117 @@
-#container {
+/*폰트 다운로드 링크*/
+/*https://www.behance.net/gallery/18068463/Anders-(Free-Font)*/
+
+* {
+    z-index: 2;
 }
 
+body {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#logo {
+    font-family: Ballet Harmony;
+    font-size: 30px;
+    background-image: linear-gradient(100deg, deeppink, coral, greenyellow, deepskyblue, blue, purple);
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 4%;
+}
+
+#logo:hover, #logo:focus { animation-duration: 3s; animation-name: rainbowLink; animation-iteration-count: infinite; animation-timing-function: ease-in; }
+@keyframes rainbowLink {
+ 0% { color: deeppink;}
+ 15% { color: coral; }
+ 30% { color: yellow; }
+ 45% { color: yellowgreen; }
+ 60% { color: deepskyblue; }
+ 75% { color: purple; }
+ 90% { color: #6b2aff; }
+ 100% { color: #e82aff; }
+}
+
+.logo-wrapper {
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+.div-post {
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+.div-post > p {
+    color: #0C87F2;
+    font-family: 'Anders';
+    font-size: 37px;
+}
+
+#container {
+    margin-top: 5%;
+    width: 80%;
+    height: 680px;
+    border: 4px solid transparent;
+    background-image: linear-gradient(#f6f6f6, #f6f6f6),
+    linear-gradient(to right, #F9B535, #ff3636aa, #ff00c3);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+
+}
+
+
+
+.container-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: #D2DDEA;
+}
+
+.posting-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+.img-wrapper {
+    text-align: center;
+}
+
+.btn-wrapper {
+    text-align: center;
+}
+
+.btn {
+    padding: .8em 9em;
+    background-color: #5796D6;
+    color: white;
+    outline: 0;
+    border: 1mm solid #EDA8F0;
+}
+
+/*textarea*/
+.form-control {
+    width: 97%;
+    border: 1mm solid #EDA8F0
+}
+
+.lined-up {
+    margin-top: 20px;
+}
+
+.file-css {
+    padding: .7em 1em;
+    background-color: #ffffff;
+    color: white;
+    outline: 0;
+    border: 1mm solid #EDA8F0;
+}
