@@ -315,13 +315,17 @@ body {
 }
 
 #footer #icon-wrapper {
-    margin: 4% 6%;
+    margin: 2% 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
+    width: 100%;
 }
 
-#footer #icon-wrapper img {
-    width: 6%;
+
+.footer-icon {
+    margin-right: 35px;
+    width: 100%;
     color: cornflowerblue;
+    z-index: 3;
 }
