@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/regist.css" />
+    <link rel="stylesheet" type="text/css" href="/static/styles/background.css"/>
+    <script>
+        
+        function profileUpdate() {
+         
+            // 이메일
+            let email = $("#email").val();
+            if (email == "") {
+                alert('e-mail 주소를 입력해 주세요.')
+                return;
+            }
+            // 프로필 사진
+            let profile_img = ""            
+            if ($("#profile-img")[0].files[0]) {                
+                profile_img = $("#profile-img")[0].files[0];
+                // 이미지파일만 올리도록 유효성 검사 실시
+                if (!is_img($("#profile-img").val())) {
+                    alert('이미지 파일만 업로드 가능합니다.');
+                    return;
+                }
+            }
+            // 설명            
+            let description = $("#description").val();
+
+            let formData = new FormData()
+            formData.append('email', email);
+            // 프로필 이미지를 바꿀때만 서버에 데이터를 보낸다.
+            if (profile_img != "") {
+                formData.append('profile_img', profile_img); 
+            }                                
+            formData.append('description', description);
+
+            $.ajax({
+                type: 'POST',
+                url: '/profile/update',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.replace('/profile')            
+                }
+            });
+        }
+
+        // 이미지 처리 유효성 검사
+        function is_img(file) {
+            let regExp = /(.*?)\.(jpg|jpeg|png)$/;
+            return regExp.test(file);
+        }
+
+    </script>
+
+    <style>
+        .profile-img {
+            width: 13vw;
+            max-width: 80px;
+            max-height: 80px;
+            height: 13vw;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            background-image: linear-gradient(#f6f6f6, #f6f6f6),
+            linear-gradient(#c4c4c4, #c4c4c4);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+        }
+    </style>
+    
+</head>
+<body>
+
+<div class="stars"></div>
+<div class="twinkling"></div>
+<div class="main-box">
+    <div class="section has-text-centered">
+        <div class="section-wrapper">
+            <div class="background-wrapper">
+            <p id="logo">Around Space</p>
+            <h1 class="title">Profile Update</h1>
+            <div class="container">
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label" for="id"></label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            
+                            <div class="id-wrapper lined-up">
+                                <div class="control">
+                                    <input type="text" class="input id-input" id="id" aria-describedby="emailHelp"
+                                           value="{{ user.id }}" disabled>                                   
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label" for="email"></label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input type="text" class="input lined-up" id="email" value="{{user.email}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label" for="description"></label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <textarea style="resize: none;" name="description" id="description" cols="40" rows="5">
+                                    {% if user.description %} {{ user.description }} {% endif %}                                   
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label" for="profile-img"></label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <img class="profile-img" src="data:image.png;base64, {{ profile_img }}" alt="프로필 사진입니다.">
+                                <input type="file" class="input lined-up" id="profile-img" placeholder="Image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button id='create-btn' class="button is-primary lined-up" onclick=profileUpdate()>프로필 수정
+                </button>
+            </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
