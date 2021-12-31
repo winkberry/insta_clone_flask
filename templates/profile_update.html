@@ -67,13 +67,52 @@
             max-width: 80px;
             max-height: 80px;
             height: 13vw;
-            border: 2px solid transparent;
+            border: 4px solid transparent;
             border-radius: 50%;
             background-image: linear-gradient(#f6f6f6, #f6f6f6),
             linear-gradient(#c4c4c4, #c4c4c4);
             background-origin: border-box;
             background-clip: content-box, border-box;
         }
+
+        .edge-pink {
+            outline: 0;
+            border: 1mm solid #EDA8F0;
+        }
+
+        .file-css {
+            width: 47%;
+            outline: 0;
+            border: 1mm solid #EDA8F0;
+        }
+
+        .input-lined-id {
+            width: 55%;
+            padding: .8em 5em;
+            border: 1mm solid #EDA8F0;
+            outline: 0;
+            text-align: center;
+            margin-right: 30px;
+        }
+
+        .input-lined-email {
+            width: 55%;
+            padding: .8em 5em;
+            border: 1mm solid #EDA8F0;
+            outline: 0;
+            text-align: center;
+             margin-right: 30px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            vertical-align: middle;
+        }
+
     </style>
     
 </head>
@@ -97,7 +136,7 @@
                             
                             <div class="id-wrapper lined-up">
                                 <div class="control">
-                                    <input type="text" class="input id-input" id="id" aria-describedby="emailHelp"
+                                    <input type="text" class="lined-up input-lined-id" id="id" aria-describedby="emailHelp"
                                            value="{{ user.id }}" disabled>                                   
                                 </div>                                
                             </div>
@@ -112,7 +151,7 @@
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input type="text" class="input lined-up" id="email" value="{{user.email}}">
+                                <input type="text" class="lined-up input-lined-email" id="email" value="{{user.email}}">
                             </div>
                         </div>
                     </div>
@@ -125,7 +164,7 @@
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <textarea style="resize: none;" name="description" id="description" cols="40" rows="5">
+                                <textarea class="lined-up edge-pink" style="resize: none;" name="description" id="description" cols="36" rows="5">
                                     {% if user.description %} {{ user.description }} {% endif %}                                   
                                 </textarea>
                             </div>
@@ -140,7 +179,7 @@
                         <div class="field">
                             <div class="control">
                                 <img class="profile-img" src="data:image.png;base64, {{ profile_img }}" alt="프로필 사진입니다.">
-                                <input type="file" class="input lined-up" id="profile-img" placeholder="Image">
+                                <input type="file" class="file-css lined-up" id="profile-img" placeholder="Image">
                             </div>
                         </div>
                     </div>
