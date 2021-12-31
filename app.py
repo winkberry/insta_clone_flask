@@ -74,8 +74,11 @@ def home():
 @app.route('/profile', methods=['GET'])
 def profile_info():
     userinfo = check_token()
-    # userpost = db.post.find_one({'id': payload['id']}, {'_id': False})
-    return render_template('profile.html', user=userinfo) #, post=userpost)
+    profile_img_binary = fs.get(userinfo["img"])
+    profile_img_base64 = codecs.encode(profile_img_binary.read(), 'base64')
+    profile_img = profile_img_base64.decode('utf-8')
+
+    return render_template('show.html', user=userinfo, profile_img=profile_img)
 
 
 # @app.route('/posting')
