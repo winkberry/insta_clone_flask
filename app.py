@@ -87,11 +87,16 @@ def profile_info():
     if id:
         userinfo = db.users.find_one({"id": id})
         profile_img = return_img(userinfo)
-        return render_template('profile.html', user=userinfo, profile_img=profile_img)
+        # doc={'user'['id']}
+        # print(doc)
+        posts = list(db.posts.find({}, {'_id': 0}))
+        # print(all_feed)
+        return render_template('profile.html', user=userinfo, profile_img=profile_img,posts=posts)
     else:
         userinfo = check_token()
         profile_img = return_img(userinfo)
-        return render_template('profile.html', user=userinfo, profile_img=profile_img)
+        posts = list(db.posts.find({}, {'_id': 0}))
+        return render_template('profile.html', user=userinfo, profile_img=profile_img,posts=posts)
 
 
 # @app.route('/posting')
@@ -277,5 +282,5 @@ def remove():
     return jsonify({'msg': '삭제되었습니다'})
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5004, debug=True)
+    app.run('0.0.0.0', port=5000, debug=True, use_reloader=True)
 
