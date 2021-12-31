@@ -37,6 +37,16 @@ def check_token():
     return db.users.find_one({'id': payload['id']}, {'_id': False})
 
 #################################
+##  이미지 리턴 함수               ##
+#################################
+
+def return_img(userinfo):
+    profile_img_binary = fs.get(userinfo["img"])
+    profile_img_base64 = codecs.encode(profile_img_binary.read(), 'base64')
+    return profile_img_base64.decode('utf-8')
+
+
+#################################
 ##  이미지 파일 전송부분            ##
 #################################
 
@@ -73,12 +83,15 @@ def home():
 # mongodb에서 원하는 조건의 데이터를 불러왔습니다.
 @app.route('/profile', methods=['GET'])
 def profile_info():
-    userinfo = check_token()
-    profile_img_binary = fs.get(userinfo["img"])
-    profile_img_base64 = codecs.encode(profile_img_binary.read(), 'base64')
-    profile_img = profile_img_base64.decode('utf-8')
-
-    return render_template('profile.html', user=userinfo, profile_img=profile_img)
+    id = request.args.get('id')
+    if id:
+        userinfo = db.users.find_one({"id": id})
+        profile_img = return_img(userinfo)
+        return render_template('profile.html', user=userinfo, profile_img=profile_img)
+    else:
+        userinfo = check_token()
+        profile_img = return_img(userinfo)
+        return render_template('profile.html', user=userinfo, profile_img=profile_img)
 
 
 # @app.route('/posting')

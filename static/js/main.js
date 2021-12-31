@@ -2,6 +2,19 @@ $(document).ready(function () {
     get_feed();
 });
 
+function go_profile(id) {
+    if(id){
+        window.location.href = `/profile?id=${id}`
+        return
+    }
+    window.location.href = `/profile`
+}
+
+function go_posting(id) {
+    window.location.href = `/post/create`
+}
+
+
 //feed 는 메인 화면에 들어갈 post를 받아서 뿌리는 역할입니다
 function get_feed() {
     $.ajax({
@@ -21,7 +34,7 @@ function get_feed() {
 
                 let temp_html = `<div class="post-wrapper">
                                      <div class="post-header">
-                                        <div class="left-wrapper">
+                                        <div class="left-wrapper" onclick="go_profile('${username}')">
                                             <img src="${profile_photo}"/>
                                             <p>${username}</p>
                                         </div>
@@ -65,14 +78,5 @@ function get_feed() {
             }
         }
     });
-    //여기다가 포스트 html 을 foreach
 }
 
-//로그인한 유저의 이름을 보내준다
-function go_profile(username) {
-    window.location.href = `/profile` //일단은 123으로 보내준다
-}
-
-function go_posting(id) {
-    window.location.href = `/post/create`
-}
