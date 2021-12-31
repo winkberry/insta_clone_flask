@@ -10,10 +10,7 @@ function login() {
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(data),
         success: function (response) {
-            if (response["result"] == "success") {
-                caches.delete('token').then(function (){
-                        window.location.href='/login'
-                    })
+            if (response["result"] == "success") {                
                 $.cookie('token', response['token']);
                 alert('로그인 하였습니다.');
                 window.location.href = '/';
