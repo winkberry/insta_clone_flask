@@ -132,15 +132,15 @@ def register():
         return render_template('regist.html')
 
 ## user profile 노출 test 기능입니다. 나중에 삭제예정
-@app.route('/show')
-def show_user_info():
-    user_info = check_token()
-    # 이미지 렌더링을 위해 base 64 형태의 데이터로 변환
-    profile_img_binary = fs.get(user_info["img"])
-    profile_img_base64 = codecs.encode(profile_img_binary.read(), 'base64')
-    profile_img = profile_img_base64.decode('utf-8')    
-    
-    return render_template('show.html', user= user_info, profile_img = profile_img)         
+# @app.route('/show')
+# def show_user_info():
+#     user_info = check_token()
+#     # 이미지 렌더링을 위해 base 64 형태의 데이터로 변환
+#     profile_img_binary = fs.get(user_info["img"])
+#     profile_img_base64 = codecs.encode(profile_img_binary.read(), 'base64')
+#     profile_img = profile_img_base64.decode('utf-8')
+#
+#     return render_template('show.html', user= user_info, profile_img = profile_img)
 
 
 # [로그인 API]
