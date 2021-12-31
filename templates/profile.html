@@ -31,8 +31,7 @@
         <div id="image-container">
             {% for post in posts %}
                     <div id="profile-body">
-                    <p>{{ post }}</p>
-{#                        <img src="{{  }}" />#}
+                        <img src="/static/post/{{ post['file'] }}">  {# 여기가 게시글 이미지 부분입니다 #}
                     </div>
             {% endfor %}
 

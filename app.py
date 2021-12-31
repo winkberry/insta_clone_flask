@@ -25,6 +25,7 @@ import jwt
 # 토큰에 만료시간을 줘야하기 때문에, datetime 모듈도 사용합니다.
 import datetime
 
+
 #################################
 ##  토큰 확인 함수                ##
 #################################
@@ -35,6 +36,7 @@ def check_token():
     # token을 decode하여 payload를 가져오고, payload 안에 담긴 유저 id를 통해 DB에서 유저의 정보를 가져옵니다.
     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
     return db.users.find_one({'id': payload['id']}, {'_id': False})
+
 
 #################################
 ##  이미지 리턴 함수               ##
@@ -87,16 +89,13 @@ def profile_info():
     if id:
         userinfo = db.users.find_one({"id": id})
         profile_img = return_img(userinfo)
-        # doc={'user'['id']}
-        # print(doc)
-        posts = list(db.posts.find({}, {'_id': 0}))
-        # print(all_feed)
-        return render_template('profile.html', user=userinfo, profile_img=profile_img,posts=posts)
+        posts = list(db.posts.find({'user.id': userinfo['id']}))
+        return render_template('profile.html', user=userinfo, profile_img=profile_img, posts=posts)
     else:
         userinfo = check_token()
         profile_img = return_img(userinfo)
-        posts = list(db.posts.find({}, {'_id': 0}))
-        return render_template('profile.html', user=userinfo, profile_img=profile_img,posts=posts)
+        posts = list(db.posts.find({'user.id':userinfo['id']}))
+        return render_template('profile.html', user=userinfo, profile_img=profile_img, posts=posts)
 
 
 # @app.route('/posting')
@@ -149,6 +148,7 @@ def register():
     else:
         return render_template('regist.html')
 
+
 ## user profile 노출 test 기능입니다. 나중에 삭제예정
 # @app.route('/show')
 # def show_user_info():
@@ -187,7 +187,7 @@ def login():
         token = request.cookies.get('token')
         if token != None:
             return redirect(url_for('home'))
-        else:        
+        else:
             msg = request.args.get("msg")
             return render_template('login.html', msg=msg)
 
@@ -214,14 +214,13 @@ def api_feed():
     return jsonify(jsonfeed)
 
 
-
-@app.route('/post/create', methods = ['GET', 'POST'])
+@app.route('/post/create', methods=['GET', 'POST'])
 def post_create():
     user = check_token()
-    
+
     if request.method == 'POST':
-        
-        content = request.form['content']        
+
+        content = request.form['content']
         file = request.files['file']
         extension = file.filename.split('.')[-1]
         create_date = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
@@ -241,7 +240,6 @@ def post_create():
         return jsonify({'msg': "저장 완료"})
     else:
         return render_template('create_post.html')
-
 
 
 # @app.route('/api/posting', methods=['POST'])
@@ -269,11 +267,11 @@ def post_create():
 #     return jsonify({'msg':'저장완료'})
 
 
-    #################################
-    ##  프로필화면을 위한 API            ##
-    #################################
+#################################
+##  프로필화면을 위한 API            ##
+#################################
 
- ## 계정 삭제가 가능합니다. ##
+## 계정 삭제가 가능합니다. ##
 @app.route('/api/user_delete', methods=['POST'])
 def remove():
     token_receive = request.cookies.get('token')
@@ -281,33 +279,33 @@ def remove():
     db.users.delete_one({'id': payload['id']})
     return jsonify({'msg': '삭제되었습니다'})
 
+
 ## 프로필 업데이트 기능
-@app.route('/profile/update', methods = ['GET', 'POST'])
+@app.route('/profile/update', methods=['GET', 'POST'])
 def profile_update():
-    
     # 쿠키에서 토큰 정보를 받고 이를 통해 현재 user를 조회합니다.
     token_receive = request.cookies.get('token')
     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
     user = db.users.find_one({'id': payload['id']})
-    
+
     # AJAX 통신으로 데이터를 전달 받습니다.
-    if request.method == 'POST':        
+    if request.method == 'POST':
         email = request.form['email']
-        description = request.form['description']   
+        description = request.form['description']
         # profile 이미지를 바꾸는 경우 form에서 profile_img 키를 탐색 후 있으면 DB에 업데이트 합니다.
         if 'profile_img' in request.form:
-            profile_img = request.files['profile_img']            
+            profile_img = request.files['profile_img']
             fs_image_id = fs.put(profile_img)
-            db.users.update_one({'id':user['id']},{'$set':{'email':email, 'description':description, 'img':fs_image_id}})
+            db.users.update_one({'id': user['id']},
+                                {'$set': {'email': email, 'description': description, 'img': fs_image_id}})
         else:
-            db.users.update_one({'id':user['id']},{'$set':{'email':email, 'description':description}})
+            db.users.update_one({'id': user['id']}, {'$set': {'email': email, 'description': description}})
         return jsonify({'msg': '프로필을 수정하였습니다.'})
-        
+
     else:
-        profile_img = return_img(user)        
-        return render_template('profile_update.html', user = user, profile_img = profile_img)
+        profile_img = return_img(user)
+        return render_template('profile_update.html', user=user, profile_img=profile_img)
 
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True, use_reloader=True)
-
