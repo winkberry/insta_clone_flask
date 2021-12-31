@@ -1,3 +1,6 @@
+/*폰트 다운로드 링크*/
+/*https://www.dropbox.com/s/xnn3ae78y79ennq/Fonarto.zip?dl=0*/
+
 * {
     z-index: 2;
 }
@@ -135,6 +138,7 @@ body {
 }
 
 .title {
+    font-family: 'Fonarto', serif;
     margin-top: 3%;
     margin-bottom: 2%;
     color: #0C87F2;
