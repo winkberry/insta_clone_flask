@@ -256,7 +256,6 @@ def post_create():
 def remove():
     token_receive = request.cookies.get('token')
     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-    print(payload)
     db.users.delete_one({'id': payload['id']})
     return jsonify({'msg': '삭제되었습니다'})
 
