@@ -28,19 +28,26 @@ function registerCheck() {
 // 만든 data를 JSON 문자열로 포맷팅하여 POST 방식으로 url에 전달하고, 서버(app.py)에서 받아 DB에 저장합니다.
 // 서버에서 응답(response)으로 result를 보내주고, 로그인 페이지로 전환합니다.
 function register() {           
-    let data = {
-        id : $("#id").val(),
-        pw : $("#pw").val(),
-        email : $("#email").val(),
-        img : $("#user-img").val(),
-    }
-    console.log(data)
+    
+    let id = $("#id").val();
+    let pw = $("#pw").val();
+    let email = $("#email").val();
+    let profile_img = $("#profile-img")[0].files[0];
+
+    // 이미지 파일을 서버로 보낼 때 JSON 객체가 아닌 자바스크립트 FormData 객체를 사용합니다.
+    let formData = new FormData()
+    formData.append("id", id)
+    formData.append("pw", pw)
+    formData.append("email", email)
+    formData.append("profile_img", profile_img)   
 
     $.ajax({
         type: 'POST',
         url: '/register',
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(data),
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: formData,
         success: function (response) {
             alert(response['result'])
             window.location.replace('/login')            

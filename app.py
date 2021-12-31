@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, send_file
 from pymongo import MongoClient
 import certifi
+import gridfs
+import codecs
 
 ca = certifi.where()
 
@@ -11,7 +13,11 @@ db = client.dbSpace
 
 app = Flask(__name__)
 
+# Token 발행용 SECRET_KEY 설정
 SECRET_KEY = '3iI3j63EmUww246bXHUVghUnYkTwQ6lm'
+
+# gridfs 초기화
+fs = gridfs.GridFS(db)
 
 # JWT 패키지를 사용합니다. (설치해야할 패키지 이름: PyJWT)
 import jwt
@@ -97,15 +103,20 @@ def profile_info():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == "POST":
-        data = request.json
+        id = request.form['id']
+        pw = request.form['pw']
+        email = request.form['email']
+        profile_img = request.files['profile_img']
+        # gridfs로 유저가 업로드한 프로필 이미지를 DB에 분할하여 저장합니다.
+        fs_image_id = fs.put(profile_img)
 
-        pw_hash = hashlib.sha256(data["pw"].encode('utf-8')).hexdigest()
+        pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
 
         doc = {
-            "id": data["id"],
+            "id": id,
             "pw": pw_hash,
-            "email": data["email"],
-            "img": data["img"]
+            "email": email,
+            "img": fs_image_id
         }
 
         db.users.insert_one(doc)
@@ -113,6 +124,20 @@ def register():
         return jsonify({"result": "어라운드 스페이스의 멤버가 되신 것을 축하합니다!"})
     else:
         return render_template('regist.html')
+
+## user profile 노출 test 기능입니다. 나중에 삭제예정
+@app.route('/show')
+def show_user_info():
+    token_receive = request.cookies.get('token')
+    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])    
+    user_info = db.users.find_one({'id': payload['id']}, {'_id': False})
+
+    # 이미지 렌더링을 위해 base 64 형태의 데이터로 변환
+    profile_img_binary = fs.get(user_info["img"])
+    profile_img_base64 = codecs.encode(profile_img_binary.read(), 'base64')
+    profile_img = profile_img_base64.decode('utf-8')    
+    
+    return render_template('show.html', user= user_info, profile_img = profile_img)         
 
 
 # [로그인 API]

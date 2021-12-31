@@ -1,0 +1,20 @@
+
+<!-- 유저 프로필 노출 테스트용 파일입니다. 나중에 삭제 예정-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>show user info</title>
+</head>
+<body>
+    <ul>
+        <li>{{ user.id }}</li>
+        <li>{{ user.email }}</li>
+        <li><img src="data:image.png;base64, {{ profile_img }}" alt=""></li>
+    </ul>
+    
+</body>
+</html>
