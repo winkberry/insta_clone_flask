@@ -1,5 +1,5 @@
 /*폰트 다운로드 링크*/
-/*https://www.behance.net/gallery/18068463/Anders-(Free-Font)*/
+/*https://www.dropbox.com/s/xnn3ae78y79ennq/Fonarto.zip?dl=0*/
 
 * {
     z-index: 2;
@@ -46,8 +46,8 @@ body {
 
 .div-post > p {
     color: #0C87F2;
-    font-family: 'Anders';
-    font-size: 37px;
+    font-family: 'Fonarto XT';
+    font-size: 40px;
 }
 
 #container {
