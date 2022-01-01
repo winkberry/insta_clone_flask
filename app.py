@@ -149,17 +149,6 @@ def register():
         return render_template('regist.html')
 
 
-## user profile 노출 test 기능입니다. 나중에 삭제예정
-# @app.route('/show')
-# def show_user_info():
-#     user_info = check_token()
-#     # 이미지 렌더링을 위해 base 64 형태의 데이터로 변환
-#     profile_img_binary = fs.get(user_info["img"])
-#     profile_img_base64 = codecs.encode(profile_img_binary.read(), 'base64')
-#     profile_img = profile_img_base64.decode('utf-8')
-#
-#     return render_template('show.html', user= user_info, profile_img = profile_img)
-
 
 # [로그인 API]
 # id, pw를 받아서 맞춰보고, 토큰을 만들어 발급합니다.
@@ -241,30 +230,6 @@ def post_create():
     else:
         return render_template('create_post.html')
 
-
-# @app.route('/api/posting', methods=['POST'])
-# def create_post():
-#     title_receive = request.form['title_give']
-#     user_receive = request.form['user_give']
-#     file = request.files['file_give']
-
-#     extension = file.filename.split('.')[-1]
-#     today = datetime.datetime.now()
-#     mytime = today.strftime('%Y-%m-%d-%H-%M-%S')  # 올리는 시간
-#     filename = f'{title_receive}-{mytime}'  # 파일이름
-#     save_to = f'static/post/{user_receive}-{filename}.{extension}'  # 파일 경로
-#     file.save(save_to)  # 파일 저장
-#     user_info = db.users.find_one({'id': user_receive})
-
-#     doc = {
-#         'user': user_info,
-#         'post_photo': f'{filename}.{extension}',
-#         'post_photo_content': title_receive,
-#     }
-
-#     db.posts.insert_one(doc)
-
-#     return jsonify({'msg':'저장완료'})
 
 
 #################################
