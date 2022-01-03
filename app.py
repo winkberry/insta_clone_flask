@@ -236,25 +236,26 @@ def profile_update():
     # 쿠키에서 토큰 정보를 받고 이를 통해 현재 user를 조회합니다.
     token_receive = request.cookies.get('token')
     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-    user = db.users.find_one({'id': payload['id']})
-
+    user = db.users.find_one({'id': payload['id']})        
     # AJAX 통신으로 데이터를 전달 받습니다.
-    if request.method == 'POST':
+    if request.method == 'POST':        
         email = request.form['email']
-        description = request.form['description']
+        description = request.form['description']                      
         # profile 이미지를 바꾸는 경우 form에서 profile_img 키를 탐색 후 있으면 DB에 업데이트 합니다.
-        if 'profile_img' in request.form:
-            profile_img = request.files['profile_img']
+        if "profile_img" in request.files :
+            print('exist')                   
+            fs.delete(user['img'])
+            profile_img = request.files['profile_img']            
             fs_image_id = fs.put(profile_img)
-            db.users.update_one({'id': user['id']},
-                                {'$set': {'email': email, 'description': description, 'img': fs_image_id}})
+            db.users.update_one({'id':user['id']},{'$set':{'email':email, 'description':description, 'img':fs_image_id}})
         else:
-            db.users.update_one({'id': user['id']}, {'$set': {'email': email, 'description': description}})
+            db.users.update_one({'id':user['id']},{'$set':{'email':email, 'description':description}})
         return jsonify({'msg': '프로필을 수정하였습니다.'})
-
+        
     else:
         profile_img = return_img(user)
-        return render_template('profile_update.html', user=user, profile_img=profile_img)
+               
+        return render_template('profile_update.html', user = user, profile_img = profile_img)
 
 
 if __name__ == '__main__':

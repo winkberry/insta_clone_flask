@@ -19,7 +19,7 @@
                 return;
             }
             // 프로필 사진
-            let profile_img = ""            
+            let profile_img;                    
             if ($("#profile-img")[0].files[0]) {                
                 profile_img = $("#profile-img")[0].files[0];
                 // 이미지파일만 올리도록 유효성 검사 실시
@@ -34,9 +34,9 @@
             let formData = new FormData()
             formData.append('email', email);
             // 프로필 이미지를 바꿀때만 서버에 데이터를 보낸다.
-            if (profile_img != "") {
+            if (profile_img != undefined) {
                 formData.append('profile_img', profile_img); 
-            }                                
+            }                                 
             formData.append('description', description);
 
             $.ajax({
