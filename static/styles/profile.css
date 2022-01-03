@@ -172,7 +172,7 @@ body {
 
 }
 
-#profile-body img {
+#profile-body > img {
     z-index: 1;
     position: relative;
     width: 100%;
@@ -180,6 +180,13 @@ body {
     object-fit: cover;
 }
 
+#image-container {
+    z-index: 1;
+    position: relative;
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
 
 /*푸터*/
 #profile-footer {
