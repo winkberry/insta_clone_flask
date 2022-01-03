@@ -3,6 +3,7 @@ from pymongo import MongoClient
 import certifi
 import gridfs
 import codecs
+from bson.objectid import ObjectId
 
 ca = certifi.where()
 
@@ -24,6 +25,8 @@ import jwt
 
 # 토큰에 만료시간을 줘야하기 때문에, datetime 모듈도 사용합니다.
 import datetime
+
+
 
 
 #################################
@@ -60,6 +63,14 @@ def utility_processor():
     # return값을 다음과 같이 설정하여 템플릿에 return_profile_img(post.user) 와 같이 사용가능합니다.
     return dict(return_profile_img = return_profile_img)
 
+@app.context_processor
+def utility_processor():
+    def return_profile_img(user):
+        profile_img_binary = fs.get(user["img"])
+        profile_img_base64 = codecs.encode(profile_img_binary.read(), 'base64')
+        return profile_img_base64.decode('utf-8')
+    # return값을 다음과 같이 설정하여 템플릿에 return_profile_img(post.user) 와 같이 사용가능합니다.
+    return dict(return_profile_img = return_profile_img)
 
 #################################
 ##  이미지 파일 전송부분            ##
@@ -69,7 +80,7 @@ def utility_processor():
 import hashlib
 
 import json
-from bson import ObjectId
+# from bson import ObjectId
 
 
 class JSONEncoder(json.JSONEncoder):
@@ -86,7 +97,9 @@ class JSONEncoder(json.JSONEncoder):
 def home():
     try:
         user_info = check_token()
-        return render_template('index.html', user=user_info)
+        posts = reversed(list(db.posts.find({}))) # 최신순으로 나오게 정렬을 뒤집음.
+
+        return render_template('index.html', posts=posts, user=user_info)
         # # 만약 해당 token의 로그인 시간이 만료되었다면, 아래와 같은 코드를 실행합니다.
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
@@ -193,13 +206,26 @@ def check_id():
 ##  메인화면을 위한 API            ##
 #################################
 
+# @app.route('/api/feed', methods=['GET'])
+# def api_feed():
+#     posts = list(db.posts.find({}))
+#     profile_img = []
+#     for post in posts:
+#         img = return_img(post['user'])
+#         profile_img.append(img)
+#
+#     return render_template('index.html', posts=posts, profile_img=profile_img)
 
-@app.route('/api/feed', methods=['GET'])
-def api_feed():
-    all_feed = list(db.posts.find({}, {'_id': 0}))
-    jsonfeed = JSONEncoder().encode(all_feed)
-    return jsonify(jsonfeed)
 
+# @app.route('/show')
+# def post_list():
+#     posts = list(db.posts.find({}))
+#     profile_img = []
+#     for post in posts:
+#         img = return_img(post['user'])
+#         profile_img.append(img)
+#
+#     return render_template('show.html', posts=posts, profile_img=profile_img)
 
 @app.route('/post/create', methods=['GET', 'POST'])
 def post_create():
@@ -229,10 +255,46 @@ def post_create():
         return render_template('create_post.html')
 
 
+@app.route('/comment/create', methods=['GET', 'POST'])
+def comment_create():
+    # 코멘트를 작성하는 유저 정보를 받습니다.
+    user = check_token()
+
+    if request.method == 'POST':
+        post_id = request.form['post_id']
+        user_id = user['id']
+        content = request.form['content']
+        # '_id'로 받은 id값을 데이터 객체의 OjbectId(_id) 형태로 만들기 위해 ObjectId 객체로 전환합니다.
+        object_post_id = ObjectId(post_id)
+        # print(object_post_id)
+
+        doc = {
+            'user': user_id,
+            'content': content,
+            'create_time': datetime.datetime.now(),
+        }
+        db.comments.insert_one(doc)
+        comment = list(db.comments.find({'user': user_id}))[-1]
+
+        doc_for_comment = {
+            'comment_id': comment['_id'],
+            'user': user_id,
+            'content': content,
+            'create_time': datetime.datetime.now(),
+        }
+        # 작성한 댓글을 comments db에 저장하고 이 _id를 댓글을 작성한 post 데이터 객체에 넣어줍니다.
+        # comment = db.comments.insert_one(doc).inserted_id
+
+        db.posts.update_one({'_id': object_post_id}, {'$addToSet': {'comments': doc_for_comment}})
+
+
+
+        return redirect(url_for('home'))
 
 #################################
 ##  프로필화면을 위한 API            ##
 #################################
+
 
 ## 계정 삭제가 가능합니다. ##
 @app.route('/api/user_delete', methods=['POST'])

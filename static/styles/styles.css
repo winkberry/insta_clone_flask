@@ -329,3 +329,60 @@ body {
     color: cornflowerblue;
     z-index: 3;
 }
+
+/*댓글 창*/
+
+.main-icon-like-text-write-commentbox{
+    display: flex;
+    margin-top: 1%;
+}
+
+.main-icon-like-text-write-subtext{
+    margin-left: 2%;
+    color: white;
+    font-size: 12px;
+}
+
+.main-icon-like-text-write-footer{
+    color: white;
+    font-size: 12px;
+}
+
+.main-icon-like-text-write-comment{
+    color: white;
+    font-size: 12px;
+
+}
+
+.userName{
+    color: white;
+    font-size: 14px;
+}
+
+.form-group{
+    display: flex;
+    color: white;
+
+}
+.form-control{
+    height: 15px;
+}
+
+.btn-primary{
+    color: #e82aff;
+}
+.comment-savebox{
+    color: white;
+}
+
+.comment-wrapper{
+    display: flex;
+    color: white;
+
+}
+
+.comment-show-box{
+    font-size: 12px;
+
+
+}
