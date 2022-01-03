@@ -1,6 +1,129 @@
+* {
+    z-index: 2;
+}
+
+p {
+    color: white;
+}
+
 body {
     max-width: 720px;
     margin: 0 auto;
+}
+
+#header {
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    max-width: 720px;
+    border-bottom: 1px solid gray;
+    z-index: 3;
+}
+
+
+#header #logo {
+    /*Ballet Harmony 폰트를 다운 받아야 합니다. */
+    /*다운로드 링크 : https://www.dafont.com/ballet-harmony.font*/
+    font-family: Ballet Harmony;
+    font-size: 55px;
+    background-image: linear-gradient(100deg, deeppink, coral, greenyellow, deepskyblue, blue, purple);
+    -webkit-background-clip: text;
+    color: transparent;
+
+}
+
+.logo-wrapper {
+    margin-left: 10%;
+    text-align: center;
+    flex-grow: 2;
+}
+
+#logo:hover, #logo:focus {
+    animation-duration: 3s;
+    animation-name: rainbowLink;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in;
+}
+
+@keyframes rainbowLink {
+    0% {
+        color: deeppink;
+    }
+    15% {
+        color: coral;
+    }
+    30% {
+        color: yellow;
+    }
+    45% {
+        color: yellowgreen;
+    }
+    60% {
+        color: deepskyblue;
+    }
+    75% {
+        color: purple;
+    }
+    90% {
+        color: #6b2aff;
+    }
+    100% {
+        color: #e82aff;
+    }
+}
+
+.add-icon-wrapper {
+    width: 10%;
+    flex-grow: 0;
+}
+
+.header-icon {
+    color: cornflowerblue;
+}
+
+
+#profile-container {
+    padding-top: 10%;
+    padding-bottom: 12%;
+}
+
+
+/*프로필 헤더*/
+#container-wrapper {
+    z-index: 1;
+    padding-left: 1%;
+    background-color: black;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    top: 0;
+
+}
+
+.li-wrapper {
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 2.5%;
+    margin-left: 3.2%;
+    margin-right: 3.2%;
+    display: flex;
+    text-align: start;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/*아이디, 이메일, 사진*/
+#profile-header li {
+    font-size: 12px;
+    color: white;
+    list-style: none;
+    margin-left: 2%;
 }
 
 .profile-img {
@@ -14,4 +137,68 @@ body {
     linear-gradient(#c4c4c4, #c4c4c4);
     background-origin: border-box;
     background-clip: content-box, border-box;
+}
+
+#profile-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.btn button {
+    padding: .4em 1em;
+    background-color: #5796D6;
+    color: white;
+    outline: 0;
+    border: 1mm solid #EDA8F0;
+    margin-bottom: 5%;
+}
+
+/*이미지들*/
+
+#image-container {
+
+}
+
+#profile-body img {
+    z-index: 1;
+    position: relative;
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+
+/*푸터*/
+#profile-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: 720px;
+    border-top: 1px solid gray;
+    background-color: black;
+}
+
+#profile-footer #icon-wrapper {
+    margin: 2% 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+
+.footer-icon {
+    margin-right: 35px;
+    width: 100%;
+    color: cornflowerblue;
+    z-index: 3;
 }
