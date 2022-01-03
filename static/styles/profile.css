@@ -37,7 +37,6 @@ body {
 }
 
 .logo-wrapper {
-    margin-left: 10%;
     text-align: center;
     flex-grow: 2;
 }
@@ -76,10 +75,7 @@ body {
     }
 }
 
-.add-icon-wrapper {
-    width: 10%;
-    flex-grow: 0;
-}
+
 
 .header-icon {
     color: cornflowerblue;
@@ -141,7 +137,6 @@ body {
 
 #profile-header {
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: row;
     margin-right: 8%;
@@ -159,7 +154,6 @@ body {
 
 .btn {
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: row;
 }
