@@ -38,7 +38,7 @@ def check_token():
     token_receive = request.cookies.get('token')
     # token을 decode하여 payload를 가져오고, payload 안에 담긴 유저 id를 통해 DB에서 유저의 정보를 가져옵니다.
     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-    return db.users.find_one({'id': payload['id']}, {'_id': False})
+    return db.users.find_one({'id': payload['id']})
 
 
 #################################
@@ -54,7 +54,6 @@ def return_img(userinfo):
 # gridfs로 저장한 이미지는 애초에 여러 파일로 나눠지고 binary값으로 저장되기 때문에 post 데이터에 img객체를 그대로 집어넣지 못합니다.
 @app.context_processor
 def utility_processor():
-
     def return_profile_img(user_id):
         user = db.users.find_one({'_id':user_id})
         profile_img_binary = fs.get(user["img"])
@@ -63,14 +62,14 @@ def utility_processor():
     # return값을 다음과 같이 설정하여 템플릿에 return_profile_img(post.user) 와 같이 사용가능합니다.
     return dict(return_profile_img = return_profile_img)
 
-@app.context_processor
-def utility_processor():
-    def return_profile_img(user):
-        profile_img_binary = fs.get(user["img"])
-        profile_img_base64 = codecs.encode(profile_img_binary.read(), 'base64')
-        return profile_img_base64.decode('utf-8')
-    # return값을 다음과 같이 설정하여 템플릿에 return_profile_img(post.user) 와 같이 사용가능합니다.
-    return dict(return_profile_img = return_profile_img)
+# @app.context_processor
+# def utility_processor():
+#     def return_profile_img(user):
+#         profile_img_binary = fs.get(user["img"])
+#         profile_img_base64 = codecs.encode(profile_img_binary.read(), 'base64')
+#         return profile_img_base64.decode('utf-8')
+#     # return값을 다음과 같이 설정하여 템플릿에 return_profile_img(post.user) 와 같이 사용가능합니다.
+#     return dict(return_profile_img = return_profile_img)
 
 #################################
 ##  이미지 파일 전송부분            ##
@@ -78,16 +77,6 @@ def utility_processor():
 
 
 import hashlib
-
-import json
-# from bson import ObjectId
-
-
-class JSONEncoder(json.JSONEncoder):
-    def default(self, o):
-        if isinstance(o, ObjectId):
-            return str(o)
-        return json.JSONEncoder.default(self, o)
 
 
 #################################
@@ -178,7 +167,7 @@ def login():
                 "id": data["id"],
                 "exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=60 * 60 * 24)
             }
-            token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+            token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
 
             return jsonify({"result": "success", "token": token})
         else:
