@@ -235,7 +235,7 @@ def comment_create():
         doc = {
             'user': user_id,
             'content': content,
-            'create_time': datetime.datetime.now(),
+            'create_time': datetime.datetime.now().strftime('%Y-%m-%d'),
         }
 
         comment_id = db.comments.insert_one(doc).inserted_id
@@ -245,7 +245,7 @@ def comment_create():
             'comment_id': comment_id,
             'user': user_id,
             'content': content,
-            'create_time': datetime.datetime.now(),
+            'create_time': datetime.datetime.now().strftime('%Y-%m-%d'),
         }
         # 작성한 댓글을 comments db에 저장하고 이 _id를 댓글을 작성한 post 데이터 객체에 넣어줍니다.
         
