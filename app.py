@@ -150,7 +150,7 @@ def register():
             "pw": pw_hash,
             "email": email,
             "img": fs_image_id,
-            "description" : "",
+            "description": "",
         }
 
         db.users.insert_one(doc)
@@ -206,26 +206,6 @@ def check_id():
 ##  메인화면을 위한 API            ##
 #################################
 
-# @app.route('/api/feed', methods=['GET'])
-# def api_feed():
-#     posts = list(db.posts.find({}))
-#     profile_img = []
-#     for post in posts:
-#         img = return_img(post['user'])
-#         profile_img.append(img)
-#
-#     return render_template('index.html', posts=posts, profile_img=profile_img)
-
-
-# @app.route('/show')
-# def post_list():
-#     posts = list(db.posts.find({}))
-#     profile_img = []
-#     for post in posts:
-#         img = return_img(post['user'])
-#         profile_img.append(img)
-#
-#     return render_template('show.html', posts=posts, profile_img=profile_img)
 
 @app.route('/post/create', methods=['GET', 'POST'])
 def post_create():
@@ -291,10 +271,20 @@ def comment_create():
 
         return redirect(url_for('home'))
 
+@app.route('/api/deletecomment', methods=['POST'])
+def del_comment():
+    comment_id = request.json['comment_id']
+    post_id = request.json['post_id']
+    db.posts.update_one({'_id': ObjectId(post_id)},
+                        {'$pull': {'comments': {'comment_id': ObjectId(comment_id)}}})
+    db.comments.delete_one({'_id': ObjectId(comment_id)})
+
+    return jsonify({'msg': '댓글을 삭제했습니다'})
+
+
 #################################
 ##  프로필화면을 위한 API            ##
 #################################
-
 
 ## 계정 삭제가 가능합니다. ##
 @app.route('/api/user_delete', methods=['POST'])
