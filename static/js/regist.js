@@ -102,6 +102,7 @@ function check_duplicate() {
                 $("#help-id").text("사용할 수 있는 아이디입니다.").removeClass("is-danger").addClass("is-success")
                 $("#btn-check-dup").hide()  // 아이디 사용이 가능하면 버튼 숨김
                 $("#create-btn").attr('disabled', false)    // 중복확인을 해야 회원가입 버튼이 활성화 됩니다.
+                $("#id").attr('disabled', true)
             }
             $("#help-id").removeClass("is-loading")
             
