@@ -47,6 +47,19 @@ def return_img(userinfo):
     profile_img_base64 = codecs.encode(profile_img_binary.read(), 'base64')
     return profile_img_base64.decode('utf-8')
 
+# flask에서 만든 함수를 그대로 jinja2에 적용하기 위해 context_processor 데코레이터를 사용합니다.
+# gridfs로 저장한 이미지는 애초에 여러 파일로 나눠지고 binary값으로 저장되기 때문에 post 데이터에 img객체를 그대로 집어넣지 못합니다.
+@app.context_processor
+def utility_processor():
+
+    def return_profile_img(user_id):
+        user = db.users.find_one({'_id':user_id})
+        profile_img_binary = fs.get(user["img"])
+        profile_img_base64 = codecs.encode(profile_img_binary.read(), 'base64')
+        return profile_img_base64.decode('utf-8')
+    # return값을 다음과 같이 설정하여 템플릿에 return_profile_img(post.user) 와 같이 사용가능합니다.
+    return dict(return_profile_img = return_profile_img)
+
 
 #################################
 ##  이미지 파일 전송부분            ##
@@ -204,7 +217,7 @@ def post_create():
 
         doc = {
             'content': content,
-            'user': user,
+            'user': user['_id'],
             'create_time': create_date,
             'file': f'{filename}.{extension}',
         }
