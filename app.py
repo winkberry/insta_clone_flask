@@ -4,7 +4,7 @@ import certifi
 import gridfs
 import codecs
 from bson.objectid import ObjectId
-
+import random
 ca = certifi.where()
 
 client = MongoClient('mongodb+srv://space:space123@cluster0.gpjhq.mongodb.net/Cluster0?retryWrites=true&w=majority',
@@ -60,6 +60,8 @@ def utility_processor():
         profile_img_base64 = codecs.encode(profile_img_binary.read(), 'base64')
         return profile_img_base64.decode('utf-8')
     # return값을 다음과 같이 설정하여 템플릿에 return_profile_img(post.user) 와 같이 사용가능합니다.
+   
+
     return dict(return_profile_img = return_profile_img)
 
 #################################
@@ -131,6 +133,7 @@ def register():
             "email": email,
             "img": fs_image_id,
             "description": "",
+            
         }
 
         db.users.insert_one(doc)
@@ -158,7 +161,7 @@ def login():
                 "id": data["id"],
                 "exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=60 * 60 * 24)
             }
-            token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
+            token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
             return jsonify({"result": "success", "token": token})
         else:
@@ -203,9 +206,10 @@ def post_create():
 
         doc = {
             'content': content,
-            'user': user['_id'],
+            'user': user,
             'create_time': create_date,
             'file': f'{filename}.{extension}',
+            "like": random.randint(1, 10000)
         }
 
         db.posts.insert_one(doc)
