@@ -146,9 +146,10 @@ body {
 .id-email {
     margin-left: 3%;
     flex-direction: column;
+    width: 70%;
 }
 .id-email > li {
-    margin-bottom: 10%;
+    margin-bottom: 3%;
 }
 
 
