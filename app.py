@@ -98,22 +98,6 @@ def profile_info():
         return render_template('profile.html', user=userinfo, profile_img=profile_img, posts=posts)
 
 
-# @app.route('/posting')
-# def posting():
-#     id = request.args.get('id')
-#     token_receive = request.cookies.get('token')
-#     try:
-#         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-#         user_info = db.users.find_one({"id": payload['id']})
-#         if id == user_info['id']:
-#             return render_template('create_post.html', user=user_info)
-#         else:
-#             return redirect(url_for("home", msg="권한이 없습니다."))
-#     except jwt.ExpiredSignatureError:
-#         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
-#         # 만약 해당 token이 올바르게 디코딩되지 않는다면, 아래와 같은 코드를 실행합니다.
-#     except jwt.exceptions.DecodeError:
-#         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 
 #################################
@@ -139,7 +123,8 @@ def register():
             "id": id,
             "pw": pw_hash,
             "email": email,
-            "img": fs_image_id
+            "img": fs_image_id,
+            "description" : "",
         }
 
         db.users.insert_one(doc)
