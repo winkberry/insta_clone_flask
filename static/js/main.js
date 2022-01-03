@@ -10,7 +10,7 @@ function go_profile(id) {
     window.location.href = `/profile`
 }
 
-function go_posting(id) {
+function go_posting() {
     window.location.href = `/post/create`
 }
 

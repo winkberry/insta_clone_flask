@@ -212,7 +212,7 @@ def post_create():
 
         doc = {
             'content': content,
-            'user': user['_id'],
+            'user': user,
             'create_time': create_date,
             'file': f'{filename}.{extension}',
         }
