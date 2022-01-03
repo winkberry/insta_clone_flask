@@ -30,7 +30,7 @@
         {% for post in posts %}
             <div class="post-wrapper">
                 <div class="post-header">
-                    <div class="left-wrapper" onclick="go_profile('{{ post.user.id }}')">
+                    <div class="left-wrapper" onclick="go_profile('{{ post.user }}')">
                         <img src="data:image.png;base64, {{ return_profile_img(post.user._id) }}">
                         <p>{{ post.user.id }}</p>
                     </div>
@@ -56,7 +56,7 @@
                 <div class="post-footer">
                     <div class="post-like-wrapper">
 
-                        <img src="data:image.png;base64, {{ return_profile_img(post.user._id) }}">
+                        <img src="data:image.png;base64, {{ return_profile_img(post.user) }}">
                         <p><strong>{{ post.user.id }}</strong>님 <strong>외 6,671명</strong>이 좋아합니다</p>
                     </div>
                     <div class="post-content-wrapper">
@@ -77,7 +77,7 @@
                                             {{ comment.content }}, {{ comment.create_time }}
                                         </span>
                                 {% if user['id'] == comment['user'] %}
-                                    <input onclick="del_comment('{{ comment['comment_id'] }}','{{ post['_id'] }}')"
+                                    <input onclick="del_comment({{ comment.comment_id }},{{ post._id }})"
                                            style="background-color: transparent" type="button" value="x">
                                 {% endif %}
                             </div>

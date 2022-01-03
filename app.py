@@ -62,15 +62,6 @@ def utility_processor():
     # return값을 다음과 같이 설정하여 템플릿에 return_profile_img(post.user) 와 같이 사용가능합니다.
     return dict(return_profile_img = return_profile_img)
 
-# @app.context_processor
-# def utility_processor():
-#     def return_profile_img(user):
-#         profile_img_binary = fs.get(user["img"])
-#         profile_img_base64 = codecs.encode(profile_img_binary.read(), 'base64')
-#         return profile_img_base64.decode('utf-8')
-#     # return값을 다음과 같이 설정하여 템플릿에 return_profile_img(post.user) 와 같이 사용가능합니다.
-#     return dict(return_profile_img = return_profile_img)
-
 #################################
 ##  이미지 파일 전송부분            ##
 #################################
@@ -212,7 +203,7 @@ def post_create():
 
         doc = {
             'content': content,
-            'user': user,
+            'user': user['_id'],
             'create_time': create_date,
             'file': f'{filename}.{extension}',
         }
@@ -242,21 +233,19 @@ def comment_create():
             'content': content,
             'create_time': datetime.datetime.now(),
         }
-        db.comments.insert_one(doc)
-        comment = list(db.comments.find({'user': user_id}))[-1]
+
+        comment_id = db.comments.insert_one(doc).inserted_id
+        # comment = list(db.comments.find({'user': user_id}))[-1]
 
         doc_for_comment = {
-            'comment_id': comment['_id'],
+            'comment_id': comment_id,
             'user': user_id,
             'content': content,
             'create_time': datetime.datetime.now(),
         }
         # 작성한 댓글을 comments db에 저장하고 이 _id를 댓글을 작성한 post 데이터 객체에 넣어줍니다.
-        # comment = db.comments.insert_one(doc).inserted_id
-
+        
         db.posts.update_one({'_id': object_post_id}, {'$addToSet': {'comments': doc_for_comment}})
-
-
 
         return redirect(url_for('home'))
 
