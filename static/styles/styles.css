@@ -1,5 +1,5 @@
-    /*Ballet Harmony 폰트를 다운 받아야 합니다. */
-    /*다운로드 링크 : https://www.dafont.com/ballet-harmony.font*/
+/*Ballet Harmony 폰트를 다운 받아야 합니다. */
+/*다운로드 링크 : https://www.dafont.com/ballet-harmony.font*/
 
 * {
     z-index: 2;
@@ -8,6 +8,7 @@
 p {
     color: white;
 }
+
 body {
     max-width: 720px;
     margin: 0 auto;
@@ -24,7 +25,7 @@ body {
     top: 0;
     max-width: 720px;
     border-bottom: 1px solid gray;
-     z-index: 3;
+    z-index: 3;
 }
 
 
@@ -42,24 +43,46 @@ body {
 .logo-wrapper {
     margin-left: 10%;
     text-align: center;
-     flex-grow: 2;
+    flex-grow: 2;
 }
 
-#logo:hover, #logo:focus { animation-duration: 3s; animation-name: rainbowLink; animation-iteration-count: infinite; animation-timing-function: ease-in; }
+#logo:hover, #logo:focus {
+    animation-duration: 3s;
+    animation-name: rainbowLink;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in;
+}
+
 @keyframes rainbowLink {
- 0% { color: deeppink;}
- 15% { color: coral; }
- 30% { color: yellow; }
- 45% { color: yellowgreen; }
- 60% { color: deepskyblue; }
- 75% { color: purple; }
- 90% { color: #6b2aff; }
- 100% { color: #e82aff; }
+    0% {
+        color: deeppink;
+    }
+    15% {
+        color: coral;
+    }
+    30% {
+        color: yellow;
+    }
+    45% {
+        color: yellowgreen;
+    }
+    60% {
+        color: deepskyblue;
+    }
+    75% {
+        color: purple;
+    }
+    90% {
+        color: #6b2aff;
+    }
+    100% {
+        color: #e82aff;
+    }
 }
 
 .add-icon-wrapper {
     width: 10%;
- flex-grow: 0;
+    flex-grow: 0;
 }
 
 .header-icon {
@@ -188,7 +211,6 @@ body {
 }
 
 
-
 /* 포스트 - 바디 */
 
 .post-body .post-img {
@@ -224,21 +246,21 @@ body {
 
 .post-body .post-icons-wrapper .left-wrapper .post-icon:hover {
     color: darkorange;
-     z-index: 1;
+    z-index: 1;
 }
 
 .post-body .post-icons-wrapper .left-wrapper .post-icon-2 {
     margin: 2% 4%;
     width: 13%;
     color: cornflowerblue;
-     z-index: 1;
+    z-index: 1;
 }
 
 .post-body .post-icons-wrapper .left-wrapper .post-icon-3 {
     margin: 2% 4%;
     width: 14%;
     color: cornflowerblue;
-     z-index: 1;
+    z-index: 1;
 
 }
 
@@ -304,7 +326,22 @@ body {
     margin-top: 5%;
 }
 
-/* 푸터 */
+/*코멘트*/
+
+.comment-show-box {
+    margin-left: 4%;
+}
+
+.form-group {
+    margin-left: 4%;
+    margin-bottom: 3%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+    /* 푸터 */
 #footer {
     position: fixed;
     bottom: 0;
@@ -332,56 +369,72 @@ body {
 
 /*댓글 창*/
 
-.main-icon-like-text-write-commentbox{
+.main-icon-like-text-write-commentbox {
     display: flex;
     margin-top: 1%;
 }
 
-.main-icon-like-text-write-subtext{
+.main-icon-like-text-write-subtext {
     margin-left: 2%;
     color: white;
     font-size: 12px;
 }
 
-.main-icon-like-text-write-footer{
+.main-icon-like-text-write-footer {
     color: white;
     font-size: 12px;
 }
 
-.main-icon-like-text-write-comment{
+.main-icon-like-text-write-comment {
     color: white;
     font-size: 12px;
 
 }
 
-.userName{
+.userName {
     color: white;
     font-size: 14px;
 }
 
-.form-group{
+.form-group {
     display: flex;
     color: white;
 
 }
-.form-control{
+
+.form-control {
     height: 15px;
 }
 
-.btn-primary{
+.cmt-box {
+    border: 1mm solid #F9E435;
+    width: 40%;
+}
+
+.btn-primary {
     color: #e82aff;
 }
-.comment-savebox{
+
+.com-btn {
+    padding: .2em 1em;
+    background-color: #5796D6;
+    color: white;
+    outline: 0;
+    border: 1mm solid #F9E435;
+    margin-left: 2%;
+}
+
+.comment-savebox {
     color: white;
 }
 
-.comment-wrapper{
+.comment-wrapper {
     display: flex;
     color: white;
 
 }
 
-.comment-show-box{
+.comment-show-box {
     font-size: 12px;
 
 
