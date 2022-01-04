@@ -240,7 +240,7 @@ def comment_create():
         }
 
         comment_id = db.comments.insert_one(doc).inserted_id
-        # comment = list(db.comments.find({'user': user_id}))[-1]
+        # doc 는 Comments db 에 저장
 
         doc_for_comment = {
             'comment_id': comment_id,
@@ -248,9 +248,9 @@ def comment_create():
             'content': content,
             'create_time': datetime.datetime.now().strftime('%Y-%m-%d'),
         }
-        # 작성한 댓글을 comments db에 저장하고 이 _id를 댓글을 작성한 post 데이터 객체에 넣어줍니다.
         
         db.posts.update_one({'_id': object_post_id}, {'$addToSet': {'comments': doc_for_comment}})
+        # doc_for_comment 는 posts 디비에 추가 업데이트를 해준다. 어떤 포스트 디비에 해주는 조건은 post_id 값을 받아와 해당하는 포스트에 저장
 
         return redirect(url_for('home'))
 
