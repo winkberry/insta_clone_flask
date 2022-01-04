@@ -96,10 +96,10 @@ def profile_info():
     id = request.args.get('id')
     if id:
         userinfo = db.users.find_one({"id": id})
-   
+        login_user = check_token()
         profile_img = return_img(userinfo)
         posts = list(db.posts.find({'user.id': userinfo['id']}))
-        return render_template('profile.html', user=userinfo, profile_img=profile_img, posts=posts)
+        return render_template('profile.html', user=userinfo, profile_img=profile_img, posts=posts,login_user=login_user)
     else:
         userinfo = check_token()
         profile_img = return_img(userinfo)
@@ -162,7 +162,7 @@ def login():
                 "id": data["id"],
                 "exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=60 * 60 * 24)
             }
-            token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+            token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
 
             return jsonify({"result": "success", "token": token})
         else:
@@ -274,6 +274,7 @@ def del_comment():
 def remove():
     token_receive = request.cookies.get('token')
     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+    # db.posts.delete_many({'user.id':payload['id']})
     db.users.delete_one({'id': payload['id']})
     return jsonify({'msg': '삭제되었습니다'})
 

@@ -34,23 +34,34 @@
                         <li>{{ user['description']}}</li>
                         </div>
                 </div>
-                {% if user.id == login_user.id %}
-                <div class="btn">
-                    <!--# 클릭하여 로그아웃할 수 있습니다-->
-                    <button onclick="sign_out()" id="sign-out">로그아웃</button>
-                    <!--# 클릭하여 user의 프로필을 편집할 수 있습니다-->
-                    <button onclick="to_profile_edit()" id="update_profile">프로필 편집</button>
-                    <!--# 클릭하여 user의 계정을 삭제할 수 있습니다-->
-                    <button onclick="remove()" id="delete_private_info()">회원탈퇴</button>
-                </div>
-                {% endif %}
+                {% if login_user %}
+                    {% if user.id == login_user.id %}
+                    <div class="btn">
+                        <!--# 클릭하여 로그아웃할 수 있습니다-->
+                        <button onclick="sign_out()" id="sign-out">로그아웃</button>
+                        <!--# 클릭하여 user의 프로필을 편집할 수 있습니다-->
+                        <button onclick="to_profile_edit()" id="update_profile">프로필 편집</button>
+                        <!--# 클릭하여 user의 계정을 삭제할 수 있습니다-->
+                        <button onclick="remove()" id="delete_private_info()">회원탈퇴</button>
+                    </div>
+                    {% endif %}
+                {% else %}
+                     <div class="btn">
+                        <!--# 클릭하여 로그아웃할 수 있습니다-->
+                        <button onclick="sign_out()" id="sign-out">로그아웃</button>
+                        <!--# 클릭하여 user의 프로필을 편집할 수 있습니다-->
+                        <button onclick="to_profile_edit()" id="update_profile">프로필 편집</button>
+                        <!--# 클릭하여 user의 계정을 삭제할 수 있습니다-->
+                        <button onclick="remove()" id="delete_private_info()">회원탈퇴</button>
+                    </div>
+                 {% endif %}
             </div>
             <!--# 자신의 게시물을 모아볼 수 있도록 구성합니다-->
             <div id="image-container">
                 {% for post in posts %}
-                <div id="profile-body">
-                    <img src="/static/post/{{ post['file'] }}"> {# 여기가 게시글 이미지 부분입니다 #}
-                </div>
+                    <div id="profile-body">
+                        <img src="/static/post/{{ post['file'] }}"> {# 여기가 게시글 이미지 부분입니다 #}
+                    </div>
                 {% endfor %}
 
             </div>
