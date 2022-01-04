@@ -72,9 +72,9 @@
                     {% for comment in post.comments %}  <!-- 등록한 댓글을 출력 -->
                         <div class="comment-wrapper">
                             <div class="comment-show-box">
-                                <span style="white-space: pre-line;">{{ comment.user }}</span>
+                                <span style="white-space: pre-line; color:cornflowerblue;">{{ comment.user }}</span>
                                 <span>
-                                            {{ comment.content }}, {{ comment.create_time }}
+                                            {{ comment.content }}, <strong>{{ comment.create_time }}</strong>
                                         </span>
                                 {% if user['id'] == comment['user'] %}
                                     {% set comment_id = comment['comment_id']  %}
@@ -92,11 +92,11 @@
                     <h5 class="border-bottom pb-2">댓글</h5>
                     <form action="comment/create" method="POST">
                         <div class="form-group">
-                            <label for="content">댓글내용</label>
-                            <textarea class="form-control" name="content" id="content" rows="3"></textarea>
+                            <label for="content"></label>
+                            <textarea class="form-control cmt-box" name="content" id="content" rows="3"></textarea>
                             {#                            <input class="main-comment-text" type="text" placeholder="댓글 달기...">#}
                             <input type="hidden" name='post_id' value="{{ post._id }}">
-                            <button type="submit" class="btn btn-primary">저장하기</button>
+                            <button type="submit" class="btn btn-primary com-btn">저장하기</button>
                         </div>
                     </form>
                 </div>
