@@ -79,7 +79,7 @@
                                 {% if user['id'] == comment['user'] %}
                                     {% set comment_id = comment['comment_id']  %}
                                     {% set post_id = post['_id']  %}       
-                                    <input onclick=del_comment({{ comment_id }},{{ post_id }})
+                                     <input onclick="del_comment('{{ comment['comment_id'] }}','{{ post['_id'] }}')"
                                            style="background-color: transparent" type="button" value="x">
                                 {% endif %}
                             </div>
