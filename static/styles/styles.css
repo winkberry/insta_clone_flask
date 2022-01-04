@@ -424,6 +424,15 @@ body {
 
 }
 
+.x-btn {
+    padding: .1em 0.5em;
+    color: #5796D6;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    font-weight: bold;
+}
+
 .comment-savebox {
     color: white;
 }
