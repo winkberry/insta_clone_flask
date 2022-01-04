@@ -96,10 +96,10 @@ def profile_info():
     id = request.args.get('id')
     if id:
         userinfo = db.users.find_one({"id": id})
-        login_user = check_token()
+   
         profile_img = return_img(userinfo)
         posts = list(db.posts.find({'user.id': userinfo['id']}))
-        return render_template('profile.html', user=userinfo, profile_img=profile_img, posts=posts, login_user=login_user)
+        return render_template('profile.html', user=userinfo, profile_img=profile_img, posts=posts)
     else:
         userinfo = check_token()
         profile_img = return_img(userinfo)
