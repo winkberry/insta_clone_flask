@@ -5,16 +5,18 @@
     z-index: 2;
 }
 
+
 p {
     color: white;
 }
 
+/*모바일 화면 크기 설정*/
 body {
     max-width: 720px;
     margin: 0 auto;
 }
 
-/* 헤더 */
+/* 상단 고정 헤더 */
 #header {
     display: flex;
     justify-content: center;
@@ -28,10 +30,8 @@ body {
     z-index: 3;
 }
 
-
+/*어라운드 스페이스 로고*/
 #header #logo {
-    /*Ballet Harmony 폰트를 다운 받아야 합니다. */
-    /*다운로드 링크 : https://www.dafont.com/ballet-harmony.font*/
     font-family: Ballet Harmony;
     font-size: 55px;
     background-image: linear-gradient(100deg, deeppink, coral, greenyellow, deepskyblue, blue, purple);
@@ -43,9 +43,11 @@ body {
 .logo-wrapper {
     margin-left: 10%;
     text-align: center;
-    flex-grow: 2;
+    /*flex grow를 1로 주면 가로 비율 전체를 차지하게 된다.*/
+    flex-grow: 1;
 }
 
+/*로고에 마우스 올릴때 효과*/
 #logo:hover, #logo:focus {
     animation-duration: 3s;
     animation-name: rainbowLink;
@@ -82,90 +84,28 @@ body {
 
 .add-icon-wrapper {
     width: 10%;
-    flex-grow: 0;
+
 }
 
+/*포스팅 아이콘*/
 .header-icon {
     color: cornflowerblue;
 }
 
-/* 컨테이너 */
+/* 컨테이너  */
 #container {
-    padding-top: 10%;
-    padding-bottom: 12%;
+    padding-top: 1%;
+/*    1% 여백을 줘서 포스트가 헤더에 가려지지 않게 한다.*/
 }
 
-/* 스토리 */
-#story-container {
-    z-index: 1;
-    padding-left: 1%;
-    background-color: black;
-    display: flex;
-    position: relative;
-    justify-content: flex-start;
-    align-items: center;
-    overflow: hidden;
-    top: 0;
-
-}
-
-.story-wrapper {
-    width: auto;
-    margin-top: 0;
-    margin-bottom: 2.5%;
-    margin-left: 3.2%;
-    margin-right: 3.2%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.story-wrapper .story-on {
-    width: 13vw;
-    max-width: 80px;
-    max-height: 80px;
-    height: 13vw;
-    border: 2px solid transparent;
-    border-radius: 50%;
-    background-image: linear-gradient(#f6f6f6, #f6f6f6),
-    linear-gradient(to right, #ff7700, #ff3636aa, #ff00c3);
-    background-origin: border-box;
-    background-clip: content-box, border-box;
-}
-
-.story-wrapper .story-off {
-    width: 13vw;
-    max-width: 80px;
-    max-height: 80px;
-    height: 13vw;
-    border: 2px solid transparent;
-    border-radius: 50%;
-    background-image: linear-gradient(#f6f6f6, #f6f6f6),
-    linear-gradient(#c4c4c4, #c4c4c4);
-    background-origin: border-box;
-    background-clip: content-box, border-box;
-}
-
-.story-wrapper img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-}
-
-.story-wrapper p {
-    margin-top: 10%;
-    margin-bottom: 0%;
-    font-size: 12px;
-}
-
-/* 포스트 - 공통 */
+/* [공통] 포스트 헤더, 바디 */
 .left-wrapper {
     margin-left: 3%;
     display: flex;
     align-items: center;
     width: 100%;
 }
+
 
 .right-wrapper {
     width: 100%;
@@ -181,7 +121,6 @@ body {
 }
 
 /* 포스트 - 헤더 */
-
 .post-header {
     position: relative;
     z-index: 1;
@@ -213,11 +152,7 @@ body {
 
 /* 포스트 - 바디 */
 
-.post-body .post-img {
-
-
-}
-
+/*포스트 이미지*/
 .post-img > img {
     z-index: 1;
     position: relative;
@@ -227,6 +162,7 @@ body {
 
 }
 
+/* 좋아요,댓글,DM,즐겨찾기 아이콘 전체를 묶는 클래스*/
 .post-body .post-icons-wrapper {
     display: flex;
     align-items: center;
@@ -235,7 +171,7 @@ body {
     margin-top: 1%;
 }
 
-/* 아이콘 크기가 달라서 부득이 하게 이렇게 만들었으나, 그냥 img 로 처리하는게 맞습니다! */
+/*좋아요 아이콘*/
 .post-body .post-icons-wrapper .left-wrapper .post-icon {
     margin: 2% 4%;
     width: 14%;
@@ -244,11 +180,13 @@ body {
 
 }
 
+/*좋아요 아이콘에 마우스를 올리면 색상이 변한다.*/
 .post-body .post-icons-wrapper .left-wrapper .post-icon:hover {
     color: darkorange;
     z-index: 1;
 }
 
+/*댓글 아이콘*/
 .post-body .post-icons-wrapper .left-wrapper .post-icon-2 {
     margin: 2% 4%;
     width: 13%;
@@ -256,17 +194,13 @@ body {
     z-index: 1;
 }
 
+/*DM 아이콘*/
 .post-body .post-icons-wrapper .left-wrapper .post-icon-3 {
     margin: 2% 4%;
     width: 14%;
     color: cornflowerblue;
     z-index: 1;
 
-}
-
-.post-body .post-icons-wrapper .right-wrapper img {
-    margin: 2% 4%;
-    width: 11%;
 }
 
 /* 포스트 - 푸터 */
@@ -278,8 +212,8 @@ body {
     z-index: 1;
 }
 
+/*몇명이 좋아요 했는지 알려주는 줄의 전체 묶음 */
 .post-footer .post-like-wrapper {
-
     display: flex;
     align-items: center;
     margin-left: 1%;
@@ -287,6 +221,7 @@ body {
     margin-bottom: 1%;
 }
 
+/*프로필 이미지*/
 .post-footer .post-like-wrapper img {
     width: 3vw;
     height: 3vw;
@@ -304,21 +239,23 @@ body {
     font-size: 14px;
 }
 
+/*작성자가 쓴 글 전체 묶음*/
 .post-footer .post-content-wrapper {
     display: flex;
 }
-
+/*작성자*/
 .post-footer .post-content-wrapper .post-author {
     margin: 0% 2% 0% 2%;
     font-weight: bold;
     font-size: 14px;
 }
-
+/*작성자가 쓴 글*/
 .post-footer .post-content-wrapper .post-content {
     margin: 0%;
     font-size: 14px;
 }
 
+/*몇시간 전에 작성했는지 알려준다.*/
 .post-footer .post-time {
     color: gray;
     font-size: 10px;
@@ -327,11 +264,13 @@ body {
 }
 
 /*코멘트*/
-
+/*댓글 전체 묶음 박스*/
 .comment-show-box {
     margin-left: 4%;
+    font-size: 12px;
 }
 
+/*댓글 작성 란 전체 묶음*/
 .form-group {
     margin-left: 4%;
     margin-bottom: 3%;
@@ -341,34 +280,8 @@ body {
     align-items: center;
 }
 
-    /* 푸터 */
-#footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    max-width: 720px;
-    border-top: 1px solid gray;
-    background-color: black;
-}
-
-#footer #icon-wrapper {
-    margin: 2% 0;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 100%;
-}
-
-
-.footer-icon {
-    margin-right: 35px;
-    width: 100%;
-    color: cornflowerblue;
-    z-index: 3;
-}
 
 /*댓글 창*/
-
 .main-icon-like-text-write-commentbox {
     display: flex;
     margin-top: 1%;
@@ -415,6 +328,7 @@ body {
     color: #e82aff;
 }
 
+/*댓글 작성 박스*/
 .com-btn {
     padding: .2em 1em;
     background-color: #5796D6;
@@ -424,6 +338,7 @@ body {
 
 }
 
+/*삭제 버튼 클래스*/
 .x-btn {
     padding: .1em 0.5em;
     color: #5796D6;
@@ -443,8 +358,30 @@ body {
 
 }
 
-.comment-show-box {
-    font-size: 12px;
-
-
+/* 고정된 푸터 */
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: 720px;
+    border-top: 1px solid gray;
+    background-color: black;
 }
+
+/*푸터 전체 묶음*/
+#footer #icon-wrapper {
+    margin: 2% 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+/*마이페이지 아이콘*/
+.footer-icon {
+    margin-right: 35px;
+    width: 100%;
+    color: cornflowerblue;
+    z-index: 3;
+}
+
