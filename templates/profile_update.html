@@ -9,43 +9,55 @@
     <link rel="stylesheet" type="text/css" href="/static/styles/regist.css" />
     <link rel="stylesheet" type="text/css" href="/static/styles/background.css"/>
     <script>
-        
+        // 프로필 업데이트 함수를 작성합니다.
         function profileUpdate() {
          
-            // 이메일
+            // 이메일 편집
             let email = $("#email").val();
+            // let var1 = $("#...").val() 에서 #을 사용하면 id 속성을, .을 사용하면 class 속성을 선택할 수 있습니다.
+            // .val()은 선택한 입력 요소에 지정한 값을 반환합니다. 이메일 값을 넣지 않으면 아래와 같은 alert를 띄웁니다.
             if (email == "") {
                 alert('e-mail 주소를 입력해 주세요.')
                 return;
             }
-            // 프로필 사진
-            let profile_img;                    
-            if ($("#profile-img")[0].files[0]) {                
+            // 프로필 사진 편집
+            let profile_img; // let 명령문을 통해 profile_img 지역 변수를 선언합니다.
+            if ($("#profile-img")[0].files[0]) {
                 profile_img = $("#profile-img")[0].files[0];
+                // console.log(response)
                 // 이미지파일만 올리도록 유효성 검사 실시
                 if (!is_img($("#profile-img").val())) {
                     alert('이미지 파일만 업로드 가능합니다.');
                     return;
                 }
             }
-            // 설명            
+            // 설명 편집
             let description = $("#description").val();
-
+            // FormData를 사용하는 이유는 이미지를 ajax로 업로드 하기 위해서 입니다.
+            // var formData = new FormData();
+            // formData.append('img',document.getElementById('file input').files[0])
+            // 이렇게 선언하면, 'img'라는 key 값으로 input에 담긴 file이 value 값으로 들어갑니다.
             let formData = new FormData()
             formData.append('email', email);
-            // 프로필 이미지를 바꿀때만 서버에 데이터를 보낸다.
+            // 프로필 이미지를 바꿀때만 서버에 데이터를 보냅니다.
             if (profile_img != undefined) {
                 formData.append('profile_img', profile_img); 
             }                                 
             formData.append('description', description);
 
             $.ajax({
-                type: 'POST',
-                url: '/profile/update',
-                cache: false,
+                type: 'POST', // http 타입
+                url: '/profile/update', // 호출 url
+                cache: false, // false를 주게 되면 브라우저 캐시 저장을 막아서 현재 값을 호출할 수 있습니다.
+                                // 그 이유는 url 호출을 할 때마다 새롭게 호출을 할 필요가 있기 때문입니다.
                 contentType: false,
+                // POST 방식으로 전송할 때 contentType의 종류 중 파일 전송을 위해서는 multipart/form-data 를 사용합니다.
+                // 바이너리 데이터를 효과적으로 전송하는 것이 가능합니다.
+                // ajax를 multipart 방식으로 데이터를 보낼 때 false 설정이 일반적입니다.
                 processData: false,
-                data: formData,
+                // ajax 방식으로 보낼 때, processData는 서버에 전달되는 data가 쿼리 스트링 형태로 전달되어 집니다.
+                // 파일전송에는 이를 피해야함으로 false로 설정해줍니다.
+                data: formData, // url 호출 시 보낼 (파라미터) 데이터
                 success: function (response) {
                     alert(response['msg'])
                     window.location.replace('/profile')            

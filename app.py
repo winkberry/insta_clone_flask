@@ -4,7 +4,7 @@ import certifi
 import gridfs
 import codecs
 from bson.objectid import ObjectId
-import random
+
 ca = certifi.where()
 
 client = MongoClient('mongodb+srv://space:space123@cluster0.gpjhq.mongodb.net/Cluster0?retryWrites=true&w=majority',
@@ -60,8 +60,6 @@ def utility_processor():
         profile_img_base64 = codecs.encode(profile_img_binary.read(), 'base64')
         return profile_img_base64.decode('utf-8')
     # return값을 다음과 같이 설정하여 템플릿에 return_profile_img(post.user) 와 같이 사용가능합니다.
-   
-
     return dict(return_profile_img = return_profile_img)
 
 #################################
@@ -90,20 +88,22 @@ def home():
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 
-# mongodb에서 원하는 조건의 데이터를 불러왔습니다.
+# 프로필 화면 기본 정보들입니다. mongodb에서 GET 요청으로 원하는 조건의 데이터를 불러왔습니다.
 @app.route('/profile', methods=['GET'])
 def profile_info():
+    # key값인 id 값을 불러옵니다.(pip install 내부 라이브러리 사용 시 requests 사용)
     id = request.args.get('id')
     if id:
-        userinfo = db.users.find_one({"id": id})
-        login_user = check_token()
-        profile_img = return_img(userinfo)
-        posts = list(db.posts.find({'user.id': userinfo['id']}))
-        return render_template('profile.html', user=userinfo, profile_img=profile_img, posts=posts,login_user=login_user)
+        userinfo = db.users.find_one({"id": id}) #현재 보고 있는 user id 값을 찾습니다.
+        profile_img = return_img(userinfo) # return_img 함수를 사용하여 profile_img를 정의합니다.
+        posts = list(db.posts.find({'user.id': userinfo['id']})) # mongodb posts list에서 해당 id와 일치하는 posts를 가져옵니다.
+        # render_template 를 사용하여 불러온 정보들을 profile.html에서 보여줄 수 있도록 합니다.
+        return render_template('profile.html', user=userinfo, profile_img=profile_img, posts=posts)
     else:
-        userinfo = check_token()
-        profile_img = return_img(userinfo)
-        posts = list(db.posts.find({'user.id':userinfo['id']}))
+        userinfo = check_token() # mongodb에서 로그인한 유저id와 일치하는 id를 찾습니다.
+        profile_img = return_img(userinfo) # return_img 함수를 사용하여 로그인한 유저의 profile_img를 정의합니다.
+        posts = list(db.posts.find({'user.id':userinfo['id']})) # mongodb posts list에서 해당 id와 일치하는 posts를 가져옵니다.
+        # render_template 를 사용하여 불러온 정보들을 profile.html에서 보여줄 수 있도록 합니다.
         return render_template('profile.html', user=userinfo, profile_img=profile_img, posts=posts)
 
 
@@ -134,7 +134,6 @@ def register():
             "email": email,
             "img": fs_image_id,
             "description": "",
-            
         }
 
         db.users.insert_one(doc)
@@ -207,10 +206,9 @@ def post_create():
 
         doc = {
             'content': content,
-            'user': user,
+            'user': user['_id'],
             'create_time': create_date,
             'file': f'{filename}.{extension}',
-            "like": random.randint(1, 10000)
         }
 
         db.posts.insert_one(doc)
@@ -236,7 +234,7 @@ def comment_create():
         doc = {
             'user': user_id,
             'content': content,
-            'create_time': datetime.datetime.now().strftime('%Y-%m-%d'),
+            'create_time': datetime.datetime.now(),
         }
 
         comment_id = db.comments.insert_one(doc).inserted_id
@@ -246,9 +244,9 @@ def comment_create():
             'comment_id': comment_id,
             'user': user_id,
             'content': content,
-            'create_time': datetime.datetime.now().strftime('%Y-%m-%d'),
+            'create_time': datetime.datetime.now(),
         }
-        
+
         db.posts.update_one({'_id': object_post_id}, {'$addToSet': {'comments': doc_for_comment}})
         # doc_for_comment 는 posts 디비에 추가 업데이트를 해준다. 어떤 포스트 디비에 해주는 조건은 post_id 값을 받아와 해당하는 포스트에 저장
 
@@ -269,17 +267,20 @@ def del_comment():
 ##  프로필화면을 위한 API            ##
 #################################
 
-## 계정 삭제가 가능합니다. ##
+## 계정 삭제가 가능합니다. post요청을 사용한 이유는 전송해야할 데이터들을 Http body에 담아서 전송할 것이기 때문입니다. ##
+## 또한 POST 요청은 서버의 상태나 데이터를 변경시킬 때 사용합니다. 데이터를 삭제하기 위해 POST 요청을 하는 것이 바람직합니다. ##
+## 이와 달리 GET 요청은 서버로부터 정보를 조회하기 위해서 사용합니다.
 @app.route('/api/user_delete', methods=['POST'])
 def remove():
+    ## 자신만의 고유한 쿠키에서 token 값을 가져옵니다.
     token_receive = request.cookies.get('token')
     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-    # db.posts.delete_many({'user.id':payload['id']})
+    ## 해당 정보에서 id 값을 삭제합니다.
     db.users.delete_one({'id': payload['id']})
     return jsonify({'msg': '삭제되었습니다'})
 
 
-## 프로필 업데이트 기능
+## 프로필 업데이트 기능,
 @app.route('/profile/update', methods=['GET', 'POST'])
 def profile_update():
     # 쿠키에서 토큰 정보를 받고 이를 통해 현재 user를 조회합니다.
